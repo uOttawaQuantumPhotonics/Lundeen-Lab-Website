@@ -98,7 +98,7 @@ def add_entry(bibtex, doi='', arxiv_id=''):
         m = re.search(r'\bdoi\s*=\s*\{([^}]+)\}', bibtex, re.I)
         doi = m.group(1).strip().lower() if m else ''
     bibtex = _with_eprint(bibtex.strip(), arxiv_id)
-    text = BIB.read_text(encoding='utf-8')
+    text = BIB.read_text(encoding='utf-8', newline='')     # newline='': keep the file's line endings
     dois, arxs = bib_ids(text)
     if doi and doi in dois:
         raise BibError('This paper (DOI `%s`) is already on the Publications page.' % doi)
@@ -109,7 +109,8 @@ def add_entry(bibtex, doi='', arxiv_id=''):
             if arxiv_id in entry:
                 if re.search(r'\bdoi\s*=', entry, re.I) or not doi:
                     raise BibError('This paper (arXiv `%s`) is already on the Publications page.' % arxiv_id)
-                BIB.write_text(text[:s] + bibtex + text[e:], encoding='utf-8')
+                sep = '\r\n' if '\r\n' in text else '\n'
+                BIB.write_bytes((text[:s] + bibtex.replace('\n', sep) + text[e:]).encode('utf-8'))
                 return 'replaced preprint'
 
     # Make the citation key unique.
@@ -117,5 +118,5 @@ def add_entry(bibtex, doi='', arxiv_id=''):
     if m and re.search(r'@\w+\s*\{\s*' + re.escape(m.group(1)) + r'\s*,', text):
         bibtex = bibtex.replace(m.group(1), m.group(1) + 'b', 1)
     sep = '\r\n' if '\r\n' in text else '\n'
-    BIB.write_text(text.rstrip() + sep + sep + bibtex.replace('\n', sep) + sep, encoding='utf-8')
+    BIB.write_bytes((text.rstrip() + sep + sep + bibtex.replace('\n', sep) + sep).encode('utf-8'))
     return 'added'

@@ -1,0 +1,23 @@
+# _bibliography/orcid-skip.txt: works on Jeff's ORCID record that are deliberately NOT on the site.
+# The weekly ORCID check (scripts/orcid_sync.py) never proposes these again.
+# One DOI (10.xxxx/...) or exact title per line; text after # is a comment.
+
+# Conference abstracts, removed from the first ORCID check (8 Nov 2026)
+10.1364/ls.2011.ltuh2                    # Absolute calibration of optical detectors using two-mode squeezed light
+10.1364/qels.2010.qthd1                  # Complete characterization of weak-homodyne PNR detectors
+10.1364/qels.2010.qff2                   # Optimal experiment design for minimal tomography
+10.1109/cleoe-eqec.2009.5191642          # Compact coupler designs for quantum optical circuits
+10.1109/cleopr.2009.5292056              # Full characterization of quantum optical detectors
+10.1364/iqec.2009.itub2                  # Joint photon statistics of photon-subtracted squeezed light
+10.1364/fio.2009.fwj3                    # Photon pair generation in birefringent fiber
+10.1364/iqec.2009.itue2                  # Photon pair generation via SFWM in birefringent fibers
+10.1109/cleoe-eqec.2009.5192119          # Quantum-enhanced phase estimation in the presence of loss
+10.1364/cqo.2007.csua39                  # Dispersion-cancellation in a classical interferometer
+10.1364/fio.2007.ftui2                   # Even-order dispersion-cancellation in low coherence interferometry
+10.1109/qels.2007.4431721                # Experimental production of pure single-photon states
+10.1117/12.541178                        # Quantum process tomography and the search for decoherence-free subspaces
+# DOIs on ORCID that doi.org does not recognise
+10.1109/qels.2008.4553151
+10.1109/qels.2008.4552969
+10.1109/qels.2008.4552972
+10.1109/qels.2008.4553069

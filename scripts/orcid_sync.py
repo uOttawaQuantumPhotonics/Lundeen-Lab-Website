@@ -9,14 +9,38 @@ anything was added.
 
     python3 scripts/orcid_sync.py <pr-body.md>
 
+Works are skipped when they are already in the bib (same DOI, arXiv number or title),
+or listed in _bibliography/orcid-skip.txt (one DOI or title per line; for works you
+deliberately leave off the site, such as conference abstracts).
+
 Exit codes: 0 = entries were added (pull-request text in <pr-body.md>),
             1 = nothing new, so no pull request is needed.
 """
 import json
+import re
 import sys
 
-from site_data import fetch, bib_ids, normalise_doi, normalise_arxiv
+from site_data import BIB, fetch, bib_ids, normalise_doi, normalise_arxiv
 import bibtools
+
+SKIP_FILE = BIB.parent / 'orcid-skip.txt'
+
+
+def norm_title(t):
+    """Lower-case letters and digits only, so small differences in case, braces or punctuation match."""
+    return re.sub(r'[^a-z0-9]', '', re.sub(r'<[^>]+>', '', t).lower())
+
+
+def bib_titles():
+    text = BIB.read_text(encoding='utf-8')
+    return {norm_title(t) for t in re.findall(r'\btitle\s*=\s*\{((?:[^{}]|\{[^{}]*\})*)\}', text, re.I)}
+
+
+def skip_list():
+    if not SKIP_FILE.exists():
+        return set()
+    lines = [l.split('#')[0].strip() for l in SKIP_FILE.read_text(encoding='utf-8').splitlines()]
+    return {normalise_doi(l).lower() if l.startswith('10.') else norm_title(l) for l in lines if l}
 
 ORCID_ID = '0000-0002-0978-2913'
 
@@ -40,8 +64,14 @@ def orcid_works():
 def main():
     out = sys.argv[1]
     added, skipped = [], []
+    skip = skip_list()
     for title, doi, arx in orcid_works():
+        title = re.sub(r'<[^>]+>', '', title).strip()   # ORCID titles sometimes carry HTML tags
+        if (doi and doi.lower() in skip) or norm_title(title) in skip:
+            continue                                  # deliberately left off the site
         dois, arxs = bib_ids()                        # re-read: earlier additions count
+        if norm_title(title) in bib_titles() and not (doi and arx and arx in arxs and doi.lower() not in dois):
+            continue                                  # same title already listed
         if (doi and doi.lower() in dois) or (arx and arx in arxs):
             if not (doi and arx and arx in arxs and doi.lower() not in dois):
                 continue                              # already listed
