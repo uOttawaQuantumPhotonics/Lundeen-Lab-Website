@@ -1,0 +1,31 @@
+{%- comment -%}
+  _includes/header.html: the bar at the top of every page.
+  - Logo (links home), the main menu from _data/nav.yml, and the "Join us" button.
+  - On phones (under 860 px wide, see assets/css/site.css) the menu collapses into
+    the ☰ button, which is a plain HTML <details> element and needs no JavaScript.
+  - The current page is highlighted using `page.nav` from the page's front matter.
+{%- endcomment -%}
+<header style="border-bottom: 1px solid #1c2430; background: #0a0e14">
+<div class="w" style="display: flex; justify-content: space-between; align-items: center; height: 72px; gap: 16px">
+<a href="{{ '/' | relative_url }}" style="display: flex; align-items: center; gap: 16px; text-decoration: none" aria-label="Lundeen Lab home">
+<img class="hdr-logo" src="{{ '/assets/img/logos/lundeen-uottawa-white.png' | relative_url }}" alt="Lundeen Lab for Quantum Photonics, University of Ottawa" style="height: 42px; width: auto; display: block">
+</a>
+<nav style="display: flex; align-items: center; gap: 26px" aria-label="Main">
+<span class="navlinks">
+{%- for item in site.data.nav -%}
+{%- if item.name == page.nav -%}
+<a href="{{ item.url | relative_url }}" style="color: #ffffff; text-decoration: none; font-size: 15px; border-bottom: 2px solid #5cc8ff; padding-bottom: 4px" aria-current="page">{{ item.name }}</a>
+{%- else -%}
+<a href="{{ item.url | relative_url }}" style="color: #c4ccd6; text-decoration: none; font-size: 15px">{{ item.name }}</a>
+{%- endif -%}
+{%- endfor -%}
+</span>
+<a class="joinbtn" href="{{ '/join/' | relative_url }}" style="background: #5cc8ff; color: #0a0e14; text-decoration: none; font-weight: 600; font-size: 15px; padding: 11px 18px; border-radius: 999px">Join us</a>
+<details class="mnav"><summary aria-label="Menu">☰</summary><div class="menu">
+{%- for item in site.data.nav -%}
+<a href="{{ item.url | relative_url }}"{% if item.name == page.nav %} aria-current="page"{% endif %}>{{ item.name }}</a>
+{%- endfor -%}
+</div></details>
+</nav>
+</div>
+</header>

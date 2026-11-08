@@ -1,0 +1,7 @@
+# .github/ISSUE_TEMPLATE/config.yml: what people see when they click "New issue".
+# Only the four update forms are offered; blank issues are turned off.
+blank_issues_enabled: false
+contact_links:
+  - name: No GitHub account? Email Jeff
+    url: mailto:jlundeen@uottawa.ca?subject=Lundeen%20Lab%20website%20update
+    about: Send your update by email instead.

@@ -1,0 +1,10 @@
+# _data/alumni_levels.yml: the alumni groups on the People page, in display order.
+# `label` is the shorter text used on the filter button.
+- level: Postdoctoral fellows
+  label: Postdoctoral fellows
+- level: PhD
+  label: PhD
+- level: MSc
+  label: MSc
+- level: Undergraduate and visiting researchers
+  label: Undergraduate and visiting

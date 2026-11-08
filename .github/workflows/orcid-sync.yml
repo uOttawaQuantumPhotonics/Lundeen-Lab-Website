@@ -1,0 +1,49 @@
+# .github/workflows/orcid-sync.yml: the weekly ORCID check.
+#
+# Every Monday (and on demand from the Actions tab) scripts/orcid_sync.py compares
+# Jeff's ORCID record with the BibTeX file. If works are missing, it adds them and
+# opens a pull request on branch bot/orcid-sync (one pull request, refreshed each week).
+name: Weekly ORCID check
+
+on:
+  schedule:
+    - cron: '17 9 * * 1'          # Mondays at 09:17 UTC (04:17 or 05:17 in Ottawa)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: bot/orcid-sync
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pyyaml
+      - name: Compare ORCID with the BibTeX file
+        id: sync
+        run: |
+          set +e
+          python3 scripts/orcid_sync.py pr.md
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+      - name: Test build
+        if: steps.sync.outputs.status == '0'
+        run: python3 scripts/build_publications.py
+      - name: Open or refresh the pull request
+        if: steps.sync.outputs.status == '0'
+        run: |
+          git config user.name  "lundeen-lab-website-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add _bibliography
+          git commit -m "$(head -n1 pr.md)"
+          git push --force origin "$BRANCH"
+          tail -n +2 pr.md > body.md
+          if gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -q OPEN; then
+            gh pr edit "$BRANCH" --title "$(head -n1 pr.md)" --body-file body.md
+          else
+            gh pr create --head "$BRANCH" --base main --title "$(head -n1 pr.md)" --body-file body.md
+          fi

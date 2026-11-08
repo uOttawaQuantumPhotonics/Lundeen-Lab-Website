@@ -1,0 +1,17 @@
+# _data/nav.yml: the main menu, in display order.
+# Used by _includes/header.html (top bar and phone menu) and _includes/footer.html.
+# Each page's front matter sets `nav:` to one of these names to highlight it.
+- name: Home
+  url: /
+- name: Research
+  url: /research/
+- name: People
+  url: /people/
+- name: Publications
+  url: /publications/
+- name: News
+  url: /news/
+- name: Resources
+  url: /resources/
+- name: Contact
+  url: /contact/

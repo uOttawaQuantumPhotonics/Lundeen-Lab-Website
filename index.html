@@ -1,0 +1,107 @@
+---
+layout: default
+title: Home
+nav: Home
+---
+{% comment %}
+  index.html: the Home page.
+  - Photo carousel and "Selected papers" come from _data/home.yml.
+  - "Latest from the lab" shows the three newest items in _data/news.yml.
+  - The research cards and the recruiting banner are written here.
+{% endcomment %}
+<section class="hero-banner" data-carousel aria-label="Banner" aria-roledescription="carousel" style="position: relative; height: 440px; overflow: hidden; background: #05070b">
+{%- comment -%} Slides come from _data/home.yml; assets/js/site.js fades between them. {%- endcomment -%}
+{%- for s in site.data.home.slides %}
+<div class="slide" data-credit="{{ s.credit }}" style="position: absolute; inset: 0; transition: opacity 1.2s ease; opacity: {% if forloop.first %}1{% else %}0{% endif %}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}">
+<img class="hero-img" src="{{ '/assets/img/' | append: s.image | relative_url }}" alt="{{ s.alt }}" style="width: 100%; height: 100%; object-fit: cover; object-position: {{ s.pos }}; display: block">
+</div>
+{%- endfor %}
+<div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,7,11,.85) 0%, rgba(5,7,11,.45) 45%, rgba(5,7,11,.1) 100%)"></div>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 18px; padding: 0 max(40px, calc((100% - 1160px) / 2)) 64px; text-align: left">
+<img class="hero-logo" src="{{ '/assets/img/logos/lundeen-lab-white.png' | relative_url }}" alt="Lundeen Lab" style="width: 380px; max-width: 80%; height: auto; filter: drop-shadow(0 4px 24px rgba(0,0,0,.6))">
+<p style="margin: 0; font: 500 20px/1.4 'Space Grotesk', sans-serif; color: #eef2f6; max-width: 640px; text-shadow: 0 2px 12px rgba(0,0,0,.7)">Quantum Photonics: Foundations to Technology</p>
+</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 18px; display: flex; justify-content: flex-end; gap: 4px; padding-right: max(30px, calc((100% - 1180px) / 2))">
+{%- for s in site.data.home.slides %}
+<button type="button" data-slide-dot="{{ forloop.index0 }}" aria-label="Show banner {{ forloop.index }}" style="width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; padding: 0"><span style="display: block; width: 10px; height: 10px; border-radius: 50%; background: {% if forloop.first %}#ffffff{% else %}rgba(255,255,255,.4){% endif %}"></span></button>
+{%- endfor %}
+</div>
+<span data-slide-credit style="position: absolute; left: 14px; bottom: 10px; font-size: 11px; color: #9aa6b2">{{ site.data.home.slides[0].credit }}</span>
+</section>
+
+<section style="padding: 72px 0 64px">
+<div class="w" style="display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 760px">
+<span style="font: 500 13px/1 'Space Grotesk', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #5cc8ff">Research</span>
+<h1 class="fs40" style="margin: 0; font: 500 40px/1.12 'Space Grotesk', sans-serif; letter-spacing: -.01em">We explore the foundations of quantum physics and use light to build new technologies.</h1>
+</div>
+<div class="cards">
+<article style="background: #111822; border: 1px solid #1f2a36; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+<img src="{{ '/assets/img/photos/research-foundations.jpg' | relative_url }}" alt="A wavefunction rendered emerging from a lens in the lab" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block">
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<h2 style="margin: 0; font: 500 22px/1.25 'Space Grotesk', sans-serif">Fundamental issues in quantum physics</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #b5bfca">Operational meanings for measurement, the wavefunction and entanglement, and weak measurement as a practical tool.</p>
+<a href="{{ '/research/' | relative_url }}" style="margin-top: auto; font-weight: 500; text-decoration: none">Learn more →</a>
+</div>
+</article>
+<article style="background: #111822; border: 1px solid #1f2a36; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+<img src="{{ '/assets/img/photos/research-metrology.jpg' | relative_url }}" alt="An integrated photonic circuit on a chip" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block">
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<h2 style="margin: 0; font: 500 22px/1.25 'Space Grotesk', sans-serif">Quantum information and metrology</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #b5bfca">Single photons for sensors beyond classical limits, quantum processors and provably secure communication.</p>
+<a href="{{ '/research/' | relative_url }}" style="margin-top: auto; font-weight: 500; text-decoration: none">Learn more →</a>
+</div>
+</article>
+<article style="background: #111822; border: 1px solid #1f2a36; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column">
+<img src="{{ '/assets/img/photos/research-spatial.jpg' | relative_url }}" alt="A laser beam casting a shadow through a ruby cube" style="width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block">
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 12px; flex: 1">
+<h2 style="margin: 0; font: 500 22px/1.25 'Space Grotesk', sans-serif">Spatial manipulation of light</h2>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #b5bfca">Shaping how light bends, focuses, twists and propagates, for quantum technologies, imaging and sensing.</p>
+<a href="{{ '/research/' | relative_url }}" style="margin-top: auto; font-weight: 500; text-decoration: none">Learn more →</a>
+</div>
+</article>
+</div>
+</div>
+</section>
+
+<section style="padding: 56px 0; background: #0f151d; border-top: 1px solid #1c2430; border-bottom: 1px solid #1c2430">
+<div class="w" style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap">
+<h2 class="fs30" style="margin: 0; font: 500 30px/1.2 'Space Grotesk', sans-serif; max-width: 760px">Build your own quantum optics experiment. We are recruiting MSc, PhD, postdoctoral and undergraduate researchers.</h2>
+<a href="{{ '/join/' | relative_url }}" style="background: #5cc8ff; color: #0a0e14; text-decoration: none; font-weight: 600; padding: 15px 24px; border-radius: 999px; white-space: nowrap">Join the lab</a>
+</div>
+</section>
+
+<section style="padding: 72px 0">
+<div class="w" style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font: 500 13px/1 'Space Grotesk', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #5cc8ff">Highlights</span>
+<h2 class="fs34" style="margin: 0; font: 500 34px/1.15 'Space Grotesk', sans-serif">Selected papers</h2>
+</div>
+<a href="{{ '/publications/' | relative_url }}" style="font-weight: 500; text-decoration: none">All publications →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+{%- for p in site.data.home.highlights %}
+<a href="{{ p.url }}" style="display: flex; flex-direction: column; gap: 10px; padding: 20px; background: #111822; border: 1px solid #1f2a36; border-radius: 14px; text-decoration: none; color: #e8edf2; min-height: 180px">
+<span style="font: 600 28px/1 'Space Grotesk', sans-serif; color: #5cc8ff">{{ p.year }}</span>
+<span style="font-size: 15px; font-weight: 500; line-height: 1.45">{{ p.title }}</span>
+<span style="margin-top: auto; font-size: 13px; color: #8794a3">{{ p.venue }}</span>
+</a>
+{%- endfor %}
+</div>
+</div>
+</section>
+
+<section style="padding: 72px 0; border-top: 1px solid #1c2430">
+<div class="w" style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 14px"><span style="font: 500 13px/1 'Space Grotesk', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #5cc8ff">News</span><h2 class="fs34" style="margin: 0; font: 500 34px/1.15 'Space Grotesk', sans-serif; letter-spacing: -.01em">Latest from the lab</h2></div>
+<a href="{{ '/news/' | relative_url }}" style="font-weight: 500; text-decoration: none">All news →</a>
+</div>
+<div class="cards">
+{%- for item in site.data.news limit: 3 %}
+{% include news-card.html item=item size=19 %}
+{%- endfor %}
+</div>
+</div>
+</section>

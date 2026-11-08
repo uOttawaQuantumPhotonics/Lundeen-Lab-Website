@@ -1,0 +1,60 @@
+# .github/ISSUE_TEMPLATE/news.yml: the "News item" form.
+# Read by scripts/process_submission.py (section "news"), which adds the item to _data/news.yml.
+# If you rename a field label here, rename it in that script too.
+name: News item
+description: Add a news item (paper, people, award, event, outreach).
+title: "News: "
+labels: ["news"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Submissions are public on GitHub as soon as you send them, before they appear on the website. Don't include anything you wouldn't want published.**
+
+        After you submit, a bot prepares the change and one of the website admins reviews it. You will get a GitHub notification when it is live.
+  - type: input
+    id: headline
+    attributes:
+      label: Headline
+      description: One line, under 80 characters, e.g. "Kyle Jordan starts a postdoc at the NRC"
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: When it happened, or the publication date (YYYY-MM-DD)
+      placeholder: "2026-11-08"
+    validations:
+      required: true
+  - type: dropdown
+    id: tag
+    attributes:
+      label: Tag
+      description: Picks the label on the card
+      options: [Paper, People, Award, Event, Outreach, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: text
+    attributes:
+      label: Text
+      description: 1 to 3 sentences, under 400 characters
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: Paper DOI, news article or event page; shown as "Read more"
+      placeholder: https://
+  - type: textarea
+    id: photo
+    attributes:
+      label: Photo
+      description: Optional. Drag a JPG or PNG into this box. Landscape works best; you must have the right to share it.
+  - type: input
+    id: credit
+    attributes:
+      label: Photo credit
+      description: 'Only if you added a photo, e.g. "Photo: Lundeen Lab"'

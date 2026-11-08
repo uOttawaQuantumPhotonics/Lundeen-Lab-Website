@@ -1,0 +1,28 @@
+---
+layout: default
+title: News
+nav: News
+---
+{% comment %}
+  news.html: the News page. The items come from _data/news.yml (newest first);
+  each card is drawn by _includes/news-card.html. Only the banner text is written here.
+{% endcomment %}
+<section class="hero-sec" style="position: relative; height: 300px; overflow: hidden; background: #05070b">
+<img class="hero-img" src="{{ '/assets/img/photos/banner-lasers.jpg' | relative_url }}" alt="" style="width: 100%; height: 100%; object-fit: cover; object-position: center; display: block">
+<div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,7,11,.9) 0%, rgba(5,7,11,.55) 50%, rgba(5,7,11,.2) 100%)"></div>
+<div class="w hero-txt" style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; padding-bottom: 48px">
+<span style="font: 500 13px/1 'Space Grotesk', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #5cc8ff">News</span>
+<h1 class="fs52" style="margin: 0; font: 500 52px/1.05 'Space Grotesk', sans-serif; letter-spacing: -.015em; color: #ffffff">News</h1>
+<p style="margin: 0; font-size: 18px; line-height: 1.5; color: #dfe5eb; max-width: 680px">Papers, people, awards and events from the lab.</p>
+</div>
+
+</section>
+<section style="padding: 56px 0 80px">
+<div class="w" style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 20px; max-width: 860px">
+{%- for item in site.data.news %}
+{% include news-card.html item=item size=21 %}
+{%- endfor %}
+</div>
+</div>
+</section>

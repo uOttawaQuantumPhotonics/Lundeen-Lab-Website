@@ -1,0 +1,35 @@
+{%- comment -%}
+  _includes/footer.html: the footer on every page.
+  Three columns (about + social links, page links, contact), a row of partner
+  logos, and the copyright line. Page links come from _data/nav.yml.
+{%- endcomment -%}
+{%- assign pill = "display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #e8edf2; text-decoration: none; padding: 7px 12px; border: 1px solid #36414f; border-radius: 999px" -%}
+{%- assign yt = "M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" -%}
+{%- assign xl = "M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" -%}
+<footer style="border-top: 1px solid #1c2430; padding: 48px 0 28px; background: #070a0f">
+<div class="w" style="display: flex; flex-direction: column; gap: 32px; font-size: 14px; color: #8794a3; line-height: 1.6">
+<div style="display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap">
+<div style="display: flex; flex-direction: column; gap: 14px; flex: 1 1 420px; max-width: 560px">
+<span style="font: 500 18px/1.3 'Space Grotesk', sans-serif; color: #e8edf2">Lundeen Lab for Quantum Photonics</span>
+<p style="margin: 0; color: #a3aebb">We explore the fundamental principles of quantum physics and harness the unique properties of light to develop novel technologies. Our research spans quantum optics, photonic quantum information, and metamaterials, with applications in communication, sensing, imaging, and foundational tests of quantum mechanics.</p>
+<div style="display: flex; gap: 8px; flex-wrap: wrap"><a href="https://www.youtube.com/channel/UCOpivl4e-nT8034xyiOcbCA" aria-label="Lundeen Lab on YouTube" style="{{ pill }}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="display: block"><path fill="#ffffff" d="{{ yt }}"/></svg><span>YouTube</span></a><a href="https://twitter.com/LundeenOttawa" aria-label="@LundeenOttawa on X" style="{{ pill }}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="display: block"><path fill="#ffffff" d="{{ xl }}"/></svg><span>@LundeenOttawa</span></a><a href="https://twitter.com/QuantumPhotonic" aria-label="@QuantumPhotonic on X" style="{{ pill }}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="display: block"><path fill="#ffffff" d="{{ xl }}"/></svg><span>@QuantumPhotonic</span></a></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #8794a3">Pages</span>
+<nav style="display: flex; flex-direction: column; gap: 6px" aria-label="Footer">
+{%- for item in site.data.nav -%}<a href="{{ item.url | relative_url }}" style="color: #c4ccd6; text-decoration: none">{{ item.name }}</a>{%- endfor -%}
+<a href="{{ '/join/' | relative_url }}" style="color: #c4ccd6; text-decoration: none">Join us</a></nav>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; max-width: 280px">
+<span style="font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #8794a3">Contact</span>
+<span style="color: #c4ccd6">University of Ottawa, Advanced Research Complex, 25 Templeton St., Ottawa, Ontario, Canada, K1N 7P6</span>
+<a href="mailto:{{ site.contact_email }}">jlundeen@uOttawa.ca</a>
+</div>
+</div>
+<div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap; padding: 24px 0; border-top: 1px solid #1c2430; border-bottom: 1px solid #1c2430"><a href="{{ '/' | relative_url }}"><img src="{{ '/assets/img/logos/lundeen-lab-white.png' | relative_url }}" alt="Lundeen Lab" style="height: 34px; width: auto; display: block"></a><a href="https://www.uottawa.ca" aria-label="University of Ottawa website"><img src="{{ '/assets/img/logos/uottawa-white-inline.svg' | relative_url }}" alt="University of Ottawa" style="height: 46px; width: auto; display: block"></a><a href="https://www.uottawa.ca/research-innovation/quantum-institute"><img src="{{ '/assets/img/logos/nexqt-white.png' | relative_url }}" alt="NexQT" style="height: 34px; width: auto; display: block"></a><a href="https://nrc.canada.ca/en/research-development/research-collaboration/collaboration-centres/nrc-uottawa-joint-centre-extreme-photonics" aria-label="Joint Centre for Extreme Photonics"><img src="{{ '/assets/img/logos/jcep-white.png' | relative_url }}" alt="Joint Centre for Extreme Photonics (JCEP)" style="height: 28px; width: auto; display: block"></a></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px">
+<span>Copyright © {{ site.time | date: "%Y" }} Jeff Lundeen. All rights reserved.</span>
+<span>This website does not constitute official University of Ottawa content.</span>
+</div>
+</div>
+</footer>

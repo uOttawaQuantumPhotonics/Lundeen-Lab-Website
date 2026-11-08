@@ -1,0 +1,47 @@
+# _data/home.yml: content for the Home page that is easiest to keep as data.
+
+# The rotating photo banner at the top (changes every 9 seconds).
+#   image   file under assets/img/
+#   alt     description of the photo for screen readers
+#   pos     which part of the photo to keep when it is cropped (CSS object-position)
+#   credit  photo credit shown in the bottom-left corner; "" for none
+slides:
+  - image: photos/banner-lab.jpg
+    alt: Students at an optical table lit by green laser light
+    pos: center 55%
+    credit: ""
+  - image: photos/banner-parliament.jpg
+    alt: Parliament Hill above the Ottawa River
+    pos: center
+    credit: "Photo: Intiaz Rahim"
+  - image: photos/banner-lasers.jpg
+    alt: Laser beams crossing an optical table in blue light
+    pos: center
+    credit: ""
+  - image: photos/banner-sunset.jpg
+    alt: Parliament Hill and the Ottawa River at sunset
+    pos: center 40%
+    credit: "Photo: iStock"
+
+# "Selected papers": five highlighted papers, chosen by hand.
+highlights:
+  - year: "2025"
+    title: Enhancing interferometry using weak value amplification with real weak values
+    venue: Physical Review Letters
+    url: https://doi.org/10.1103/PhysRevLett.134.080802
+  - year: "2024"
+    title: Shadow of a laser beam
+    venue: Optica
+    url: https://doi.org/10.1364/OPTICA.534596
+  - year: "2021"
+    title: An optic to replace space and its application towards ultra-thin imaging systems
+    venue: Nature Communications
+    url: https://doi.org/10.1038/s41467-021-23358-8
+  - year: "2016"
+    title: Direct measurement of the density matrix of a quantum system
+    venue: Physical Review Letters
+    url: https://doi.org/10.1103/PhysRevLett.117.120401
+  - year: "2011"
+    title: Direct measurement of the quantum wavefunction
+    venue: Nature
+    url: https://doi.org/10.1038/nature10120

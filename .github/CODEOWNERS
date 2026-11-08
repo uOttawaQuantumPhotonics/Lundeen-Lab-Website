@@ -1,0 +1,5 @@
+# .github/CODEOWNERS: every change to the site needs approval from the web-admins team.
+# Together with the branch protection rule on main (see docs/admin-guide.md), this means
+# nothing reaches the live site until JLOttawa or mffg1993 approves the pull request.
+# To change who can approve, edit the team's members on GitHub; this file stays the same.
+*  @uOttawaQuantumPhotonics/web-admins

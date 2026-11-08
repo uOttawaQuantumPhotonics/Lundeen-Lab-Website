@@ -1,0 +1,130 @@
+# _data/members.yml: current group members, in the order shown on the People page.
+# Shown by people.html ("Current members"). Updated by the "My profile" form,
+# or edit by hand. Fields:
+#   name      full name
+#   role      e.g. "PhD student", "Postdoctoral fellow"
+#   project   one-line project title
+#   bio       optional short bio (about 80 words); leave "" for none
+#   start     optional, e.g. "Fall 2026" (not shown on the site)
+#   photo     file name in assets/img/people/ (square, 400x400); "" shows initials
+#   links     optional; only links that are filled in appear, as small icons
+#             (website, scholar, orcid, github, linkedin, x, bluesky: full URLs)
+# When someone leaves the group, remove them here and add them to alumni.yml.
+
+- name: Manuel Ferrer
+  role: Postdoctoral fellow
+  project: Experiments in quantum information
+  bio: ""
+  photo: manuel-ferrer.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Kyle Jordan
+  role: Postdoctoral fellow · Associate member
+  project: Postdoctoral fellow at the National Research Council Canada
+  bio: ""
+  photo: kyle-jordan.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Michael Weil
+  role: PhD student
+  project: Photon statistics of high-gain parametric downconversion
+  bio: Michael joined the lab in summer 2021 with an NSERC Undergraduate Student Research Award, then came back for a 12-month co-op placement working on holographic wavefront reconstruction and the three-lens spaceplate. He is now a PhD student. Outside the lab he plays ice hockey, runs and does astrophotography.
+  photo: michael-weil.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Colin Veevers
+  role: PhD student
+  project: Frequency–time entangled photon pairs for spectroscopy
+  bio: ""
+  photo: ""
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Timothy Lee
+  role: PhD student
+  project: Quantum communication with ultrafast timing resolution
+  bio: ""
+  photo: timothy-lee.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Riza Fazili
+  role: PhD student
+  project: Machine learning for optimizing quantum optics
+  bio: ""
+  photo: riza-fazili.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Simon Lamontagne
+  role: MSc student
+  project: Multiplexed holograms for quantum information
+  bio: ""
+  photo: simon-lamontagne.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Alexander Duong
+  role: Undergraduate researcher
+  project: Quantum optical coherence tomography
+  bio: Alex is a fourth-year Honours BSc student in Physics–Mathematics with a minor in Economics, and a co-op research assistant in the lab for summer and fall 2026. He previously researched quantum materials in the Chi Lab, and holds an NSERC USRA and several uOttawa scholarships. He plays tennis and piano, and enjoys Lego and photography.
+  photo: alexander-duong.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""
+- name: Lucie Wang
+  role: Undergraduate researcher
+  project: ""
+  bio: ""
+  photo: lucie-wang.jpg
+  links:
+    website: ""
+    scholar: ""
+    orcid: ""
+    github: ""
+    linkedin: ""
+    x: ""
+    bluesky: ""

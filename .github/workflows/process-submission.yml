@@ -1,0 +1,90 @@
+# .github/workflows/process-submission.yml: turn a submitted update form into a pull request.
+#
+# Runs when an issue is opened or edited with one of the form labels
+# (news, publication, profile, alumni).
+#   1. scripts/process_submission.py edits the data files for that form
+#   2. the site is test-built, so a broken submission never reaches an approver
+#   3. the change is pushed to branch submission/issue-<number> and a pull request is
+#      opened (or updated, if the submitter edits their issue)
+# If the submission has a problem, the bot comments on the issue instead.
+# Nothing goes live until a member of web-admins merges the pull request.
+name: Process an update form
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:            # one run per issue at a time
+  group: submission-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  process:
+    if: >-
+      contains(github.event.issue.labels.*.name, 'news') ||
+      contains(github.event.issue.labels.*.name, 'publication') ||
+      contains(github.event.issue.labels.*.name, 'profile') ||
+      contains(github.event.issue.labels.*.name, 'alumni')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      ISSUE: ${{ github.event.issue.number }}
+      BRANCH: submission/issue-${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: pip install pyyaml pillow
+
+      - name: Prepare the change
+        id: prep
+        run: |
+          set +e
+          python3 scripts/process_submission.py "$GITHUB_EVENT_PATH" pr.md
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+
+      - name: Tell the submitter what to fix
+        if: steps.prep.outputs.status == '2'
+        run: gh issue comment "$ISSUE" --body-file pr.md
+
+      - name: Stop on an unexpected error
+        if: steps.prep.outputs.status != '0' && steps.prep.outputs.status != '2'
+        run: |
+          gh issue comment "$ISSUE" --body "Sorry, the website bot hit an unexpected error. An admin will take a look: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          exit 1
+
+      # ---- test-build the site with the change, exactly as deploy.yml does ----
+      - if: steps.prep.outputs.status == '0'
+        run: python3 scripts/build_publications.py
+      - if: steps.prep.outputs.status == '0'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - if: steps.prep.outputs.status == '0'
+        name: Test build
+        run: bundle exec jekyll build
+
+      - name: Open or update the pull request
+        if: steps.prep.outputs.status == '0'
+        run: |
+          git config user.name  "lundeen-lab-website-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add _data _bibliography assets/img
+          git commit -m "$(head -n1 pr.md) (#$ISSUE)"
+          git push --force origin "$BRANCH"
+          title="$(head -n1 pr.md)"
+          tail -n +2 pr.md > body.md
+          if gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -q OPEN; then
+            gh pr edit "$BRANCH" --title "$title" --body-file body.md
+            gh issue comment "$ISSUE" --body "Thanks! I've updated the pull request with your changes."
+          else
+            url=$(gh pr create --head "$BRANCH" --base main --title "$title" --body-file body.md)
+            gh issue comment "$ISSUE" --body "Thanks! Your update is ready for review: $url. It goes live once an admin approves it."
+          fi

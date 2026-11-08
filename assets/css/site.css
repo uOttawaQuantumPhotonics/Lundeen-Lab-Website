@@ -1,0 +1,112 @@
+/* ============================================================================
+   assets/css/site.css: shared styles for the Lundeen Lab website
+   ----------------------------------------------------------------------------
+   Most styling is written inline on each element (style="..."), copied from
+   the approved design mockups so the pages match them exactly. This file only
+   holds what inline styles cannot do:
+     1. a few reusable layout classes (.w, .cards, .two, .four, .tbl)
+     2. the phone menu (.mnav)
+     3. the phone layout (the @media block), which overrides inline styles
+        through small "hook" classes added to elements in the page files.
+
+   Colours used across the site
+     #0a0e14  page background        #111822  card background
+     #1f2a36  card border            #5cc8ff  accent (blue)
+     #8fdc72  links (green)          #e8edf2  main text
+     #b5bfca  secondary text         #8794a3  muted text
+   Fonts: Space Grotesk (headings), Inter (body), both from Google Fonts.
+   ========================================================================== */
+
+body { margin: 0; background: #0a0e14; }
+a { color: #8fdc72; }
+a:hover { color: #c6f2b4; }
+
+/* ---- 1. Layout helpers --------------------------------------------------- */
+
+/* .w: the centred content column (1240 px wide with 40 px side padding). */
+.w { max-width: 1240px; margin: 0 auto; padding: 0 40px; box-sizing: border-box; }
+
+/* Grids of equal-width columns. All collapse to one column on phones. */
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.two   { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: center; }
+.four  { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+
+.navlinks { display: flex; gap: 26px; }
+
+/* .tbl: plain data tables (admissions, alumni). */
+.tbl { width: 100%; border-collapse: collapse; font-size: 15px; }
+.tbl th { text-align: left; font-weight: 600; color: #e8edf2; padding: 12px 16px; border-bottom: 1px solid #2b3644; }
+.tbl td { padding: 12px 16px; border-bottom: 1px solid #1c2430; color: #c4ccd6; vertical-align: top; line-height: 1.5; }
+
+/* ---- 2. Phone menu (the ☰ button; hidden on wide screens) ----------------- */
+
+.mnav { display: none; position: relative; }
+.mnav summary { list-style: none; cursor: pointer; width: 42px; height: 42px; display: grid; place-items: center;
+  border: 1px solid #36414f; border-radius: 10px; color: #e8edf2; font-size: 20px; line-height: 1; }
+.mnav summary::-webkit-details-marker { display: none; }
+.mnav .menu { position: absolute; right: 0; top: 52px; background: #111822; border: 1px solid #1f2a36; border-radius: 14px;
+  padding: 8px; display: flex; flex-direction: column; min-width: 210px; z-index: 50; box-shadow: 0 12px 32px rgba(0,0,0,.45); }
+.mnav .menu a { padding: 12px 14px; color: #e8edf2; text-decoration: none; font-size: 16px; border-radius: 8px; }
+.mnav .menu a[aria-current] { background: #18212c; color: #ffffff; }
+
+/* Elements hidden by the search/filter scripts in assets/js/site.js. */
+.is-hidden { display: none !important; }
+
+/* ---- 3. Phone layout (screens narrower than 860 px) -----------------------
+   "!important" is needed because these rules override inline styles.
+   Hook classes, added in the page files:
+     .m1               a two-column grid that should become one column
+     .fs52 .fs44 .fs40 .fs34 .fs30   large headings, shrunk on phones
+     .jump             the "jump to section" button row; becomes a vertical list
+     .stack            a table shown as stacked cards (Join: admissions)
+     .hero-banner      the Home page photo carousel (shorter on phones)
+     .hero-sec .hero-txt .hero-img   the photo banner at the top of other pages
+     .hero-logo .hdr-logo .joinbtn   logo and button sizes
+   ------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .w { padding: 0 20px; }
+  .cards, .two, .four { grid-template-columns: minmax(0, 1fr); }
+  .two { gap: 28px; }
+  .navlinks { display: none; }
+  .mnav { display: block; }
+  .hero-logo { width: 72% !important; }
+  .hdr-logo { height: 30px !important; }
+  .joinbtn { padding: 9px 14px !important; font-size: 14px !important; white-space: nowrap; }
+
+  .stack thead { display: none; }
+  .stack tr { display: block; padding: 14px 16px; border-bottom: 1px solid #1c2430; }
+  .stack td { display: block; border: 0 !important; padding: 2px 0 !important; }
+  .stack td:nth-child(1), .stack td:nth-child(2) { display: inline; font-weight: 600; color: #e8edf2; }
+  .stack td:nth-child(1)::after { content: " · "; }
+  .stack td:nth-child(3) { margin-top: 6px; }
+
+  .m1 { grid-template-columns: minmax(0, 1fr) !important; gap: 28px !important; }
+
+  .fs52 { font-size: 34px !important; }
+  .fs44, .fs40 { font-size: 30px !important; }
+  .fs34 { font-size: 26px !important; }
+  .fs30 { font-size: 24px !important; }
+
+  .jump { flex-direction: column !important; align-items: stretch !important; gap: 8px !important; }
+  .jump span { margin: 0 0 2px !important; }
+  .jump a { display: block; text-align: left; }
+
+  .tbl { font-size: 14px; }
+  .tbl th, .tbl td { padding: 10px 12px; }
+
+  .hero-banner { height: 308px !important; }
+
+  .hero-sec { height: auto !important; min-height: 210px; }
+  .hero-sec > .hero-img { position: absolute; inset: 0; }
+  .hero-sec > div { z-index: 0; }
+  .hero-txt { position: relative !important; inset: auto !important; min-height: 210px;
+    padding-top: 28px !important; padding-bottom: 28px !important; gap: 10px !important; }
+  .hero-txt p { font-size: 15px !important; }
+  .hero-txt h1 { font-size: 28px !important; }
+  .hero-img { object-position: center center !important; }
+}
+
+/* People who ask their system for less motion get no carousel fade. */
+@media (prefers-reduced-motion: reduce) {
+  .slide { transition: none !important; }
+}

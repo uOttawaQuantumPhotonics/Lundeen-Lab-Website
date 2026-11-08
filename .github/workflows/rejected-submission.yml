@@ -1,0 +1,31 @@
+# .github/workflows/rejected-submission.yml: when an admin closes a submission's
+# pull request without merging it, pass their reason back to the submitter.
+#
+# The reason is the admin's last comment on the pull request. It is posted on the
+# original issue, and the issue is closed.
+name: Report a declined submission
+
+on:
+  pull_request_target:
+    types: [closed]
+
+permissions:
+  issues: write
+  pull-requests: read
+
+jobs:
+  report:
+    if: github.event.pull_request.merged == false && startsWith(github.event.pull_request.head.ref, 'submission/issue-')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      PR: ${{ github.event.pull_request.number }}
+      HEAD: ${{ github.event.pull_request.head.ref }}
+    steps:
+      - run: |
+          issue="${HEAD#submission/issue-}"
+          reason=$(gh pr view "$PR" --json comments -q '.comments | last | .body // "No reason was given."')
+          printf 'An admin decided not to publish this update.\n\n> %s\n\nYou are welcome to submit a new form.' "$reason" > msg.md
+          gh issue comment "$issue" --body-file msg.md
+          gh issue close "$issue" --reason "not planned"

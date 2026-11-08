@@ -1,0 +1,325 @@
+# _data/alumni.yml: former group members, shown in the "Alumni" table on the People page.
+# Updated by the "Moving on / alumni update" form, or edit by hand. Fields:
+#   name      full name
+#   level     must be exactly one of the levels listed in _data/alumni_levels.yml
+#   years     years in the lab, e.g. "2020–2025" (en dash) or "2022"
+#   position  last known position, e.g. "Assistant Professor, Carleton University"
+#   url       optional link for the position; "" for none
+# Each person is listed once, at their highest level in the lab.
+# Within a level, list the most recent people first (the page keeps this order).
+
+- name: Andrew Proppe
+  level: Postdoctoral fellows
+  years: 2022–2025
+  position: AI development, Perspective Space
+  url: ""
+- name: Orad Reshef
+  level: Postdoctoral fellows
+  years: '2022'
+  position: R&D, IonQ
+  url: ""
+- name: Raphael Abrahão
+  level: Postdoctoral fellows
+  years: 2020–2022
+  position: Assistant Professor, Rochester Institute of Technology
+  url: https://www.rit.edu/photonics/members
+- name: Connor Kupchak
+  level: Postdoctoral fellows
+  years: 2018–2020
+  position: Associate Professor, Carleton University
+  url: https://doe.carleton.ca/~connorkupchak/
+- name: Lambert Giner
+  level: Postdoctoral fellows
+  years: 2014–2018
+  position: Assistant Professor, Université de Moncton
+  url: https://scholar.google.ca/citations?user=kVO2JVQAAAAJ
+- name: Kyle Jordan
+  level: PhD
+  years: 2020–2025
+  position: Postdoctoral fellow, National Research Council Canada
+  url: ""
+- name: Thomas Bailey
+  level: PhD
+  years: 2020–2025
+  position: Patent law clerk
+  url: ""
+- name: Arman Mansouri
+  level: PhD
+  years: 2020–2025
+  position: PhD thesis submitted, University of Ottawa
+  url: ""
+- name: Aldo Martínez Becerril
+  level: PhD
+  years: 2017–2024
+  position: Postdoctoral fellow, University of Toronto
+  url: ""
+- name: Daniel Hutama
+  level: PhD
+  years: 2021–2023
+  position: Business development, Canadian Photonics Fabrication Centre
+  url: ""
+- name: Jing-Hui Huang (visiting)
+  level: PhD
+  years: 2022–2023
+  position: PhD candidate, China University of Geosciences
+  url: ""
+- name: Jefferson Flórez
+  level: PhD
+  years: 2016–2022
+  position: Scientist, Quantinuum
+  url: ""
+- name: Brayden Freitas
+  level: MSc
+  years: 2022–2024
+  position: Independent contractor
+  url: ""
+- name: Nicholas Sorensen
+  level: MSc
+  years: 2022–2023
+  position: PhD student, University of Calgary
+  url: ""
+- name: Henri Morin
+  level: MSc
+  years: 2018–2022
+  position: PhD student, Institute for Quantum Computing, University of Waterloo
+  url: ""
+- name: Michael DelMastro
+  level: MSc
+  years: 2018–2021
+  position: Master of Political Management, Carleton University
+  url: ""
+- name: Davor Curic
+  level: MSc
+  years: 2016–2018
+  position: PhD student, biophotonics, University of Calgary
+  url: ""
+- name: Matthew Runyon
+  level: MSc
+  years: 2015–2017
+  position: Optical systems engineer, Ciena
+  url: ""
+- name: Guillaume Thekkadath
+  level: MSc
+  years: 2015–2017
+  position: Research scientist, National Research Council Canada
+  url: ""
+- name: Rebecca Saaltink
+  level: MSc
+  years: 2012–2016
+  position: Optical applications engineer, Iridian Spectral Technologies
+  url: ""
+- name: Xinru Cheng
+  level: MSc
+  years: 2014–2016
+  position: College instructor, Nanaimo, BC
+  url: ""
+- name: Maye Alsaawy
+  level: MSc
+  years: 2014–2016
+  position: —
+  url: ""
+- name: Lucie Wang
+  level: Undergraduate and visiting researchers
+  years: '2026'
+  position: Undergraduate, University of Ottawa
+  url: ""
+- name: John Grace
+  level: Undergraduate and visiting researchers
+  years: '2026'
+  position: MSc, EPFL
+  url: ""
+- name: Mathilda Zagabe
+  level: Undergraduate and visiting researchers
+  years: 2024–2026
+  position: Undergraduate, University of Ottawa
+  url: ""
+- name: Angéline Lafleur
+  level: Undergraduate and visiting researchers
+  years: 2024–2025
+  position: MSc, Institute for Quantum Computing, Waterloo
+  url: ""
+- name: Christopher Negraes
+  level: Undergraduate and visiting researchers
+  years: 2024–2025
+  position: University of Ottawa
+  url: ""
+- name: Pawni Manchanda
+  level: Undergraduate and visiting researchers
+  years: '2024'
+  position: PhD candidate, quantum information
+  url: ""
+- name: Jennifer Besner
+  level: Undergraduate and visiting researchers
+  years: 2023–2024
+  position: PhD candidate, University of Glasgow
+  url: ""
+- name: Niklas Braband
+  level: Undergraduate and visiting researchers
+  years: '2023'
+  position: Researcher, Max Planck Institute for the Science of Light
+  url: ""
+- name: Sudhir Suresh Babu
+  level: Undergraduate and visiting researchers
+  years: '2023'
+  position: Undergraduate, IIT Guwahati
+  url: ""
+- name: Ilyas Jaffer
+  level: Undergraduate and visiting researchers
+  years: '2023'
+  position: BSc, University of Ottawa
+  url: ""
+- name: Cedric Bohemier
+  level: Undergraduate and visiting researchers
+  years: 2022–2023
+  position: PhD candidate, UNSW Sydney
+  url: ""
+- name: Pratham Tahiliani
+  level: Undergraduate and visiting researchers
+  years: '2022'
+  position: MSc, IIT Dhanbad
+  url: ""
+- name: Yaryna Mamchur
+  level: Undergraduate and visiting researchers
+  years: '2022'
+  position: PhD student, photonics, University of Ottawa
+  url: ""
+- name: James Hubble
+  level: Undergraduate and visiting researchers
+  years: '2022'
+  position: PhD candidate, University of Ottawa
+  url: ""
+- name: Jordan Page
+  level: Undergraduate and visiting researchers
+  years: '2019'
+  position: MSc, physical chemistry, McGill University
+  url: ""
+- name: Kinjal Saxena
+  level: Undergraduate and visiting researchers
+  years: '2019'
+  position: Master of Management, Columbia University
+  url: ""
+- name: Siwei Luo
+  level: Undergraduate and visiting researchers
+  years: 2018–2019
+  position: PhD candidate, Max Planck Institute for the Science of Light
+  url: ""
+- name: Li Liu
+  level: Undergraduate and visiting researchers
+  years: '2018'
+  position: BSc, Nankai University
+  url: ""
+- name: Ali Alhulaymi
+  level: Undergraduate and visiting researchers
+  years: '2018'
+  position: PhD student, Yale University
+  url: ""
+- name: Nathan Carlson
+  level: Undergraduate and visiting researchers
+  years: 2016–2018
+  position: PhD student, University of Toronto
+  url: ""
+- name: Gabriel Bussières
+  level: Undergraduate and visiting researchers
+  years: 2017–2018
+  position: MSc completed
+  url: ""
+- name: Michel Poisson
+  level: Undergraduate and visiting researchers
+  years: 2017–2018
+  position: IT systems administrator
+  url: ""
+- name: Xinyuan Ma
+  level: Undergraduate and visiting researchers
+  years: '2017'
+  position: PhD student, Nanyang Technological University
+  url: ""
+- name: Abdulkarim Hariri
+  level: Undergraduate and visiting researchers
+  years: '2017'
+  position: MSc student, Duke University
+  url: ""
+- name: Felix Hufnagel
+  level: Undergraduate and visiting researchers
+  years: 2016–2017
+  position: PhD student, University of Ottawa
+  url: ""
+- name: Tyler Dacosta
+  level: Undergraduate and visiting researchers
+  years: 2016–2017
+  position: Electrical engineer
+  url: ""
+- name: Codey Nacke
+  level: Undergraduate and visiting researchers
+  years: 2016–2017
+  position: Master's, electrical engineering, McGill University
+  url: ""
+- name: Alexandre Charest
+  level: Undergraduate and visiting researchers
+  years: '2016'
+  position: —
+  url: ""
+- name: Darren Chan (high school)
+  level: Undergraduate and visiting researchers
+  years: '2016'
+  position: —
+  url: ""
+- name: Marissa Granados Báez
+  level: Undergraduate and visiting researchers
+  years: '2015'
+  position: PhD student, University of Rochester
+  url: ""
+- name: Alec Fraser
+  level: Undergraduate and visiting researchers
+  years: '2015'
+  position: PhD student, University of Texas
+  url: ""
+- name: Alicia Sit
+  level: Undergraduate and visiting researchers
+  years: '2015'
+  position: PhD student, University of Ottawa
+  url: ""
+- name: Matthew Horton
+  level: Undergraduate and visiting researchers
+  years: '2015'
+  position: PhD student, University of Cambridge
+  url: ""
+- name: Jash Banker
+  level: Undergraduate and visiting researchers
+  years: 2014–2015
+  position: PhD student, Caltech
+  url: ""
+- name: Yamn Chalich
+  level: Undergraduate and visiting researchers
+  years: '2014'
+  position: MEng student, McMaster University
+  url: ""
+- name: Tai Leung
+  level: Undergraduate and visiting researchers
+  years: '2014'
+  position: Museum guide, Canada Science and Technology Museum
+  url: ""
+- name: Kiera van der Sande
+  level: Undergraduate and visiting researchers
+  years: '2014'
+  position: Engineer
+  url: ""
+- name: Magdalena Richardson
+  level: Undergraduate and visiting researchers
+  years: 2013–2017
+  position: BEng student, University of Ottawa
+  url: ""
+- name: Brandon Sutherland
+  level: Undergraduate and visiting researchers
+  years: 2009–2010
+  position: Editor, Joule
+  url: ""
+- name: Corey Stewart
+  level: Undergraduate and visiting researchers
+  years: '2009'
+  position: PhD student, University of Toronto
+  url: ""
+- name: Aabid Patel
+  level: Undergraduate and visiting researchers
+  years: '2009'
+  position: PhD student, University of Southampton
+  url: ""

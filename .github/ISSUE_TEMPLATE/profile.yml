@@ -1,0 +1,93 @@
+# .github/ISSUE_TEMPLATE/profile.yml: the "My profile (join or update)" form.
+# Read by scripts/process_submission.py (section "profile"), which edits _data/members.yml.
+# A new name adds a card; an existing name updates that card (only filled-in fields change).
+name: My profile (join or update)
+description: Add yourself to Current members on the People page, or update your card.
+title: "Profile: "
+labels: ["profile"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Submissions are public on GitHub as soon as you send them, before they appear on the website. Don't include anything you wouldn't want published.**
+
+        After you submit, a bot prepares the change and one of the website admins reviews it. You will get a GitHub notification when it is live.
+  - type: input
+    id: name
+    attributes:
+      label: Full name
+      description: As it should appear on the site
+    validations:
+      required: true
+  - type: dropdown
+    id: for
+    attributes:
+      label: Submitting for
+      description: If someone else, the pull request is flagged for a closer check
+      options: [Myself, Someone else]
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Role
+      options: [Postdoctoral fellow, PhD student, MSc student, Undergraduate researcher, Visiting researcher, Research associate, Associate member]
+    validations:
+      required: true
+  - type: input
+    id: start
+    attributes:
+      label: Start (year and term)
+      description: e.g. Fall 2026
+    validations:
+      required: true
+  - type: input
+    id: project
+    attributes:
+      label: Project title
+      description: One line, under 80 characters
+  - type: textarea
+    id: bio
+    attributes:
+      label: Bio
+      description: Third person, under 80 words; research first, a line about interests outside the lab is welcome
+  - type: input
+    id: website
+    attributes:
+      label: Personal website
+      placeholder: https://
+  - type: input
+    id: scholar
+    attributes:
+      label: Google Scholar
+      placeholder: https://scholar.google.com/citations?user=...
+  - type: input
+    id: orcid
+    attributes:
+      label: ORCID
+      description: e.g. 0000-0002-0978-2913
+  - type: input
+    id: github
+    attributes:
+      label: GitHub
+      description: Username
+  - type: input
+    id: linkedin
+    attributes:
+      label: LinkedIn
+      placeholder: https://www.linkedin.com/in/...
+  - type: input
+    id: x
+    attributes:
+      label: X
+      description: Handle, e.g. @LundeenOttawa
+  - type: input
+    id: bluesky
+    attributes:
+      label: Bluesky
+      description: Handle, e.g. name.bsky.social
+  - type: textarea
+    id: photo
+    attributes:
+      label: Photo
+      description: Drag a JPG or PNG into this box. Head and shoulders, at least 400 × 400 px; it will be cropped to a square.

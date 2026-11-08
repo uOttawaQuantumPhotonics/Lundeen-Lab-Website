@@ -1,0 +1,67 @@
+# .github/ISSUE_TEMPLATE/alumni-update.yml: the "Moving on / alumni update" form.
+# Linked from the "Direct update (GitHub form)" button on the People page.
+# Read by scripts/process_submission.py (section "alumni"), which edits
+# _data/alumni.yml (and removes a leaver from _data/members.yml).
+name: Moving on / alumni update
+description: Leaving the group, or updating where you are now.
+title: "Alumni: "
+labels: ["alumni"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Submissions are public on GitHub as soon as you send them, before they appear on the website. Don't include anything you wouldn't want published.**
+
+        After you submit, a bot prepares the change and one of the website admins reviews it. You will get a GitHub notification when it is live.
+
+        No GitHub account? [Email Jeff your update](mailto:jlundeen@uottawa.ca?subject=Lundeen%20Lab%20alumni%20update) instead.
+  - type: input
+    id: name
+    attributes:
+      label: Full name
+      description: As listed on the site
+    validations:
+      required: true
+  - type: dropdown
+    id: change
+    attributes:
+      label: What's changing
+      options: [I'm leaving the group, Update my alumni entry]
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Level in the lab
+      description: Your highest level in the lab
+      options: [Postdoctoral fellow, PhD, MSc, Undergraduate, Visiting researcher]
+    validations:
+      required: true
+  - type: input
+    id: years
+    attributes:
+      label: Years in the lab
+      description: e.g. 2020–2025
+    validations:
+      required: true
+  - type: input
+    id: position
+    attributes:
+      label: Current position
+      description: e.g. "Postdoctoral fellow, National Research Council Canada"
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: Your group, faculty or company page; makes your position clickable
+      placeholder: https://
+  - type: dropdown
+    id: for
+    attributes:
+      label: Submitting for
+      description: Someone else is flagged for a closer check
+      options: [Myself, Someone else]
+    validations:
+      required: true

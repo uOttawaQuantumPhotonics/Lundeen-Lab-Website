@@ -1,0 +1,10 @@
+# Build output and local tooling; never commit these.
+_site/
+.jekyll-cache/
+.sass-cache/
+vendor/
+.bundle/
+Gemfile.lock
+__pycache__/
+# Generated from _bibliography/lundeenlab.bib by scripts/build_publications.py
+_data/publications.json

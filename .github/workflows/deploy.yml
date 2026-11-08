@@ -1,0 +1,57 @@
+# .github/workflows/deploy.yml: build the website and publish it on GitHub Pages.
+#
+# Runs on every push to main (that is, every merged pull request), and can be run
+# by hand from the Actions tab ("Run workflow").
+#   1. turn _bibliography/lundeenlab.bib into _data/publications.json
+#   2. build the site with Jekyll
+#   3. publish the result to GitHub Pages
+# One-time setup: Settings → Pages → Source: "GitHub Actions" (see docs/admin-guide.md).
+name: Build and publish the website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:            # if two merges happen close together, publish only the newest
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the publication list from the BibTeX file
+        run: python3 scripts/build_publications.py
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true          # installs the Gemfile packages and caches them
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build the site with Jekyll
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

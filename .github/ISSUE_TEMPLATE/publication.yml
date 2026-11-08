@@ -1,0 +1,49 @@
+# .github/ISSUE_TEMPLATE/publication.yml: the "Add a publication" form.
+# Read by scripts/process_submission.py (section "publication"), which fetches the
+# BibTeX and adds it to _bibliography/lundeenlab.bib.
+name: Add a publication
+description: Add a paper, preprint, conference paper or patent to the Publications page.
+title: "Publication: "
+labels: ["publication"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Submissions are public on GitHub as soon as you send them, before they appear on the website. Don't include anything you wouldn't want published.**
+
+        After you submit, a bot prepares the change and one of the website admins reviews it. You will get a GitHub notification when it is live.
+
+        Give **one** of DOI, arXiv number or BibTeX; the bot fetches the rest.
+  - type: input
+    id: doi
+    attributes:
+      label: DOI
+      description: e.g. 10.1103/PhysRevLett.134.080802
+  - type: input
+    id: arxiv
+    attributes:
+      label: arXiv number
+      description: e.g. 2401.01234; add it even when there is a DOI, so we can link the free version
+  - type: textarea
+    id: bibtex
+    attributes:
+      label: BibTeX
+      description: Paste only if the paper has no DOI or arXiv number
+      render: bibtex
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options: [Journal article, Conference paper, Preprint, Book or chapter, Patent, Thesis]
+    validations:
+      required: true
+  - type: textarea
+    id: authors
+    attributes:
+      label: Lab members who are authors
+      description: Helps us tag the paper on members' profiles
+  - type: textarea
+    id: note
+    attributes:
+      label: Note for the approver
+      description: e.g. "This replaces the arXiv version already listed"

@@ -1,0 +1,40 @@
+# =============================================================================
+# _config.yml: site-wide settings for the Lundeen Lab website (Jekyll)
+# -----------------------------------------------------------------------------
+# Jekyll reads this file once at the start of every build. Changes here need a
+# rebuild (GitHub does this automatically when you push to main).
+# See docs/how-it-works.md for an overview of the whole site.
+# =============================================================================
+
+title: "Lundeen Lab for Quantum Photonics"
+description: >-
+  We explore the fundamental principles of quantum physics and harness the
+  unique properties of light to develop novel technologies.
+
+# Where the site is served from.
+#   While the site lives at https://uottawaquantumphotonics.github.io/lundeen-lab-website/
+#   baseurl must be "/lundeen-lab-website".
+#   Once the custom domain (photonicquantum.info) is connected, change baseurl
+#   to "" and url to "https://photonicquantum.info". See docs/admin-guide.md.
+url: "https://uottawaquantumphotonics.github.io"
+baseurl: "/lundeen-lab-website"
+
+# The GitHub repository; used to build links to the update forms.
+repository: "uOttawaQuantumPhotonics/lundeen-lab-website"
+
+# Contact address shown on the site and used by the "Email Jeff" buttons.
+contact_email: "jlundeen@uottawa.ca"
+
+# Every page lives at a clean address such as /research/ rather than /research.html.
+permalink: pretty
+
+# Files and folders that are part of the repository but are not web pages.
+exclude:
+  - README.md
+  - docs/
+  - scripts/
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .github/
+  - _bibliography/
