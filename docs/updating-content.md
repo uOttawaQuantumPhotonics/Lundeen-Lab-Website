@@ -16,10 +16,10 @@ Open them from the repository's **Issues → New issue** page, or from the links
 
 | Form | Use it to | What changes |
 |---|---|---|
-| [News item](https://github.com/uOttawaQuantumPhotonics/lundeen-lab-website/issues/new?template=news.yml) | announce a paper, award, event, new member… | a card on the News page; the three newest also show on Home |
-| [Add a publication](https://github.com/uOttawaQuantumPhotonics/lundeen-lab-website/issues/new?template=publication.yml) | add a paper, preprint, conference paper or patent | the Publications page |
-| [My profile](https://github.com/uOttawaQuantumPhotonics/lundeen-lab-website/issues/new?template=profile.yml) | join Current members, or update your card (role, project, bio, photo, links) | the People page |
-| [Moving on / alumni update](https://github.com/uOttawaQuantumPhotonics/lundeen-lab-website/issues/new?template=alumni-update.yml) | leave the group, or say where you are now | the Alumni table on the People page |
+| [News item](https://github.com/uOttawaQuantumPhotonics/Lundeen-Lab-Website/issues/new?template=news.yml) | announce a paper, award, event, new member… | a card on the News page; the three newest also show on Home |
+| [Add a publication](https://github.com/uOttawaQuantumPhotonics/Lundeen-Lab-Website/issues/new?template=publication.yml) | add a paper, preprint, conference paper or patent | the Publications page |
+| [My profile](https://github.com/uOttawaQuantumPhotonics/Lundeen-Lab-Website/issues/new?template=profile.yml) | join Current members, or update your card (role, project, bio, photo, links) | the People page |
+| [Moving on / alumni update](https://github.com/uOttawaQuantumPhotonics/Lundeen-Lab-Website/issues/new?template=alumni-update.yml) | leave the group, or say where you are now | the Alumni table on the People page |
 
 After you click **Submit**:
 

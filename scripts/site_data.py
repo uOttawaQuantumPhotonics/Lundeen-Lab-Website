@@ -20,7 +20,7 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / '_data'
 BIB = ROOT / '_bibliography' / 'lundeenlab.bib'
-USER_AGENT = 'lundeen-lab-website-bot (+https://github.com/uOttawaQuantumPhotonics/lundeen-lab-website)'
+USER_AGENT = 'lundeen-lab-website-bot (+https://github.com/uOttawaQuantumPhotonics/Lundeen-Lab-Website)'
 
 
 # ---- YAML files in _data/ ---------------------------------------------------

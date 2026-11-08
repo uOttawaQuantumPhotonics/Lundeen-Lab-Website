@@ -28,7 +28,7 @@ of *front matter* (`layout`, `title`, `nav`) and contains that page's HTML. Jeky
 [Liquid](https://shopify.github.io/liquid/) tags read the data files: `{{ site.data.members }}` is
 `_data/members.yml`, and `{% for m in site.data.members %} … {% endfor %}` repeats a card for each member.
 `{{ '/assets/…' | relative_url }}` adds the site's base address so links work both on
-`…github.io/lundeen-lab-website/` and, later, on the custom domain.
+`…github.io/Lundeen-Lab-Website/` and, later, on the custom domain.
 
 ## Design
 
@@ -77,5 +77,5 @@ workflows (a GitHub rule for its built-in token), which is why that check runs i
 ```sh
 bundle install
 python3 scripts/build_publications.py
-bundle exec jekyll serve      # http://localhost:4000/lundeen-lab-website/
+bundle exec jekyll serve      # http://localhost:4000/Lundeen-Lab-Website/
 ```

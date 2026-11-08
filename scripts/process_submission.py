@@ -83,7 +83,7 @@ def save_news_photo(img, slug):
 
 def raw_url(branch, rel):
     """Link that shows a file from the pull-request branch (for the photo preview)."""
-    repo = os.environ.get('GITHUB_REPOSITORY', 'uOttawaQuantumPhotonics/lundeen-lab-website')
+    repo = os.environ.get('GITHUB_REPOSITORY', 'uOttawaQuantumPhotonics/Lundeen-Lab-Website')
     return 'https://github.com/%s/blob/%s/%s?raw=true' % (repo, branch, rel)
 
 
