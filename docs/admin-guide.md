@@ -10,7 +10,7 @@ You get a GitHub email for each new pull request. Open it and check:
 - **Photos:** the pull request shows the cropped headshot or news photo.
 - **"Submitted on behalf of someone else"** warning: make sure the person agreed.
 
-Then **Review changes → Approve**, and **Merge**. The site is live about two minutes later
+Then **Review changes → Approve**, and **Merge pull request**. Approving alone doesn't publish anything. If Merge is blocked with "Review required" (your own approval doesn't count when you pushed to the pull request), tick "Merge without waiting for requirements to be met (bypass rules)". Then delete the branch (or turn on Settings → General → Automatically delete head branches). The site is live about two minutes later
 (progress: the **Actions** tab, workflow "Build and publish the website").
 
 To make a small fix before merging, edit the file in the pull request yourself (Files changed → ••• → Edit file).
@@ -25,8 +25,10 @@ Delete any entries you don't want (edit `_bibliography/lundeenlab.bib` in the pu
 
 1. **Publish with Actions.** Settings → Pages → Build and deployment → Source: **GitHub Actions**.
 2. **Let the bot open pull requests.** Settings → Actions → General → Workflow permissions:
-   choose **Read and write permissions** and tick **Allow GitHub Actions to create and approve pull requests**.
-   (If it is greyed out, set the same option in the organization's settings first.)
+   keep **Read repository contents and packages permissions** (each workflow asks for the extra access it needs)
+   and tick **Allow GitHub Actions to create and approve pull requests**.
+   If the box is greyed out, tick the same option in the organization's settings
+   (Organization → Settings → Actions → General) first.
 3. **Create the four labels** the forms use: Issues → Labels → New label:
    `news`, `publication`, `profile`, `alumni`.
 4. **Create the approvers team.** Organization → Teams → New team `web-admins`, add JLOttawa and mffg1993,
@@ -56,4 +58,5 @@ Add or remove people in the `web-admins` team. Nothing in the code needs to chan
   Usually a typo in a YAML file; fix it in a new pull request. The live site keeps the last good version meanwhile.
 - **The bot said "unexpected error" on an issue:** open the linked Actions run. Common causes: doi.org or ORCID was down
   (edit the issue later to retry), or a photo link that can't be downloaded.
+- **A name list in a form is out of date:** Actions tab → "Update the forms' name lists" → Run workflow, then merge its pull request.
 - **Undo a change:** open the merged pull request and click **Revert**; merge the revert pull request.

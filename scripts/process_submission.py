@@ -181,26 +181,87 @@ LINK_FORMS = {   # form field -> (members.yml key, how to turn the answer into a
 
 
 def find(items, name):
-    key = slugify(name)
-    return next((x for x in items if slugify(x['name']) == key), None)
+    """The entry with exactly this name (as picked from a form's drop-down list), or None."""
+    return next((x for x in items if x['name'] == name), None)
+
+
+def similar(a, b):
+    """True when two names look like the same person: equal ignoring case and accents, or
+    one is the other plus extra words ("Manuel Ferrer" / "Manuel Ferrer-García").
+    Used only to STOP a submission that would create a duplicate, never to pick a card."""
+    wa, wb = slugify(a).split('-'), slugify(b).split('-')
+    n = min(len(wa), len(wb))
+    return n >= 2 and wa[:n] == wb[:n]
+
+
+def already_listed(typed, twin, where, list_name):
+    """The message for a "new" name that matches someone already listed."""
+    if slugify(typed) == slugify(twin):
+        return '**%s** is already %s. Please pick your name in the %s list instead.' % (twin, where, list_name)
+    return ('"%s" looks like it may already be %s as **%s**. If that is you, pick "%s" in the %s list '
+            '(and put "%s" in Full name if you want the name changed).' % (typed, where, twin, twin, list_name, typed))
+
+
+def picked(a, label, none_option):
+    """The name chosen in a drop-down, or '' for no choice / the "not listed" option."""
+    v = a.get(label, '').strip()
+    return '' if v in ('', none_option) else v
+
+
+NEW_MEMBER = 'New member (not listed yet)'
+NOT_LISTED = 'Not listed'
 
 
 def do_profile(a, branch):
-    name = ' '.join(a.get('Full name', '').split())
-    if not name:
-        raise Problem('Please give your full name.')
+    who = picked(a, 'Profile', NEW_MEMBER)
+    action = a.get('What to do', 'Add or update')
+    typed = ' '.join(a.get('Full name', '').split())
+    header, members = load_yaml('members')
+    warnings = []
+
+    if action == 'Remove this card':
+        if not who:
+            raise Problem('To remove a card, pick it in the Profile list. "New member" has no card to remove.')
+        m = find(members, who)
+        if not m:
+            raise Problem('"%s" is no longer on the People page, so there is nothing to remove.' % who)
+        members.remove(m)
+        save_yaml('members', header, members)
+        warnings.append('This **removes** the card of **%s** from Current members, without adding an alumni entry. '
+                        'Removal is meant for duplicates and mistakes; check that this person is not simply leaving '
+                        '(that is the Moving on form).' % who)
+        return 'Remove: ' + who, warnings, ['Removes **%s** from `_data/members.yml`. The photo file stays in the repository.' % who]
+
+    if who:
+        m = find(members, who)
+        if not m:
+            raise Problem('"%s" is no longer on the People page. Pick "New member" if you want to be added again.' % who)
+        new = False
+    else:
+        if not typed:
+            raise Problem('Please give your full name (you picked "New member").')
+        twin = next((x['name'] for x in members if similar(x['name'], typed)), None)
+        if twin:
+            raise Problem(already_listed(typed, twin, 'on the People page', 'Profile'))
+        for field in ('Role', 'Start (year and term)'):
+            if not a.get(field):
+                raise Problem('Please fill in "%s" (it is required for a new member).' % field)
+        m = {'name': typed, 'role': '', 'project': '', 'bio': '', 'photo': '',
+             'links': {k: '' for k, _ in LINK_FORMS.values()}}
+        members.append(m)
+        new = True
+
     project, bio = a.get('Project title', ''), ' '.join(a.get('Bio', '').split())
     if len(project) > 80:
         raise Problem('The project title is %d characters; please keep it under 80.' % len(project))
     if len(bio.split()) > 80:
         raise Problem('The bio is %d words; please keep it under 80.' % len(bio.split()))
-    header, members = load_yaml('members')
-    m = find(members, name)
-    new = m is None
-    if new:
-        m = {'name': name, 'role': '', 'project': '', 'bio': '', 'photo': '',
-             'links': {k: '' for k, _ in LINK_FORMS.values()}}
-        members.append(m)
+
+    title = ('Profile: add ' if new else 'Profile: update ') + m['name']
+    if not new and typed and typed != m['name']:
+        warnings.append('This **renames** the card "%s" to "%s". Check that this is intended and not a typo.' % (m['name'], typed))
+        title = 'Rename: %s → %s' % (m['name'], typed)
+        m['name'] = typed
     # Only fields that were filled in change.
     for field, key in (('Role', 'role'), ('Start (year and term)', 'start'), ('Project title', 'project'), ('Bio', 'bio')):
         if a.get(field):
@@ -210,15 +271,15 @@ def do_profile(a, branch):
         if a.get(field):
             m['links'][key] = to_url(a[field].strip())
     img = download_image(a.get('Photo', ''), 'photo')
-    photo = save_headshot(img, slugify(name)) if img else ''
+    photo = save_headshot(img, slugify(m['name'])) if img else ''
     if photo:
         m['photo'] = photo.split('/')[-1]
     save_yaml('members', header, members)
-    lines = ['%s **%s** in `_data/members.yml` (Current members on the People page).' % ('Adds' if new else 'Updates', name),
+    lines = ['%s **%s** in `_data/members.yml` (Current members on the People page).' % ('Adds' if new else 'Updates', m['name']),
              '', '```yaml', yaml_snippet(m), '```']
     if photo:
         lines += ['', 'Photo, cropped to 400 × 400:', '', '<img src="%s" width="160">' % raw_url(branch, photo)]
-    return ('Profile: add ' if new else 'Profile: update ') + name, lines
+    return title, warnings, lines
 
 
 LEVELS = {'Postdoctoral fellow': 'Postdoctoral fellows', 'PhD': 'PhD', 'MSc': 'MSc',
@@ -227,29 +288,64 @@ LEVELS = {'Postdoctoral fellow': 'Postdoctoral fellows', 'PhD': 'PhD', 'MSc': 'M
 
 
 def do_alumni(a, branch):
-    name = ' '.join(a.get('Full name', '').split())
-    level = LEVELS.get(a.get('Level in the lab', ''))
-    if not name or not level:
-        raise Problem('Please give your full name and your level in the lab.')
-    row = {'name': name, 'level': level, 'years': a.get('Years in the lab', '').replace('-', '–'),
-           'position': a.get('Current position', ''), 'url': need_url(a.get('Link', ''), 'link')}
+    leaving = a.get("What's changing", '').startswith("I'm leaving")
+    member = picked(a, 'If you are leaving, your current card', NOT_LISTED)
+    alum = picked(a, 'If you are updating, your alumni entry', NOT_LISTED)
+    typed = ' '.join(a.get('Full name', '').split())
+    level = LEVELS.get(a.get('Level in the lab', ''), '')
+    years = a.get('Years in the lab', '').replace('-', '–')
+    position = a.get('Current position', '')
+    link = need_url(a.get('Link', ''), 'link')
     header, alumni = load_yaml('alumni')
-    lines = []
-    if a.get("What's changing", '').startswith("I'm leaving"):
-        mh, members = load_yaml('members')
-        m = find(members, name)
-        if m:
+    lines, warnings = [], []
+
+    if leaving:
+        name = member or typed
+        if not name:
+            raise Problem('Please pick your name in "If you are leaving, your current card".')
+        missing = [f for f, v in (('Level in the lab', level), ('Years in the lab', years), ('Current position', position)) if not v]
+        if missing:
+            raise Problem('When leaving the group, please also fill in: %s.' % ', '.join(missing))
+        if member:
+            mh, members = load_yaml('members')
+            m = find(members, member)
+            if not m:
+                raise Problem('"%s" is no longer on the People page.' % member)
             members.remove(m)
             save_yaml('members', mh, members)
-            lines.append('Removes **%s** from Current members (`_data/members.yml`). Their photo file stays in the repository.' % name)
-        else:
-            lines.append('Note: **%s** was not found in Current members, so nothing was removed there.' % name)
-    old = find(alumni, name)
-    if old:
-        old.update({k: v for k, v in row.items() if v})
-        lines.append('Updates their row in the alumni table (`_data/alumni.yml`).')
-        row = old
+            lines.append('Removes **%s** from Current members (`_data/members.yml`). Their photo file stays in the repository.' % member)
+        row = find(alumni, typed or member) or find(alumni, member)
     else:
+        if alum:
+            row = find(alumni, alum)
+            if not row:
+                raise Problem('"%s" is no longer in the alumni table.' % alum)
+        else:
+            if not typed:
+                raise Problem('Please pick your name in "If you are updating, your alumni entry", or give your full name if you are not listed.')
+            twin = next((x['name'] for x in alumni if similar(x['name'], typed)), None)
+            if twin:
+                raise Problem(already_listed(typed, twin, 'in the alumni table', 'alumni'))
+            missing = [f for f, v in (('Level in the lab', level), ('Years in the lab', years), ('Current position', position)) if not v]
+            if missing:
+                raise Problem('You are not in the alumni table yet, so please also fill in: %s.' % ', '.join(missing))
+            row = None
+        name = alum or typed
+
+    if row:
+        if typed and typed != row['name']:
+            warnings.append('This **renames** the alumni entry "%s" to "%s". Check that this is intended.' % (row['name'], typed))
+        old_level = row['level']
+        for k, v in (('name', typed), ('level', level), ('years', years), ('position', position), ('url', link)):
+            if v:
+                row[k] = v
+        if row['level'] != old_level:              # a changed level moves the row to the top of its new group
+            alumni.remove(row)
+            i = next((k for k, x in enumerate(alumni) if x['level'] == row['level']), len(alumni))
+            alumni.insert(i, row)
+        lines.append('Updates their row in the alumni table (`_data/alumni.yml`).')
+    else:
+        row = {'name': typed or name, 'level': level, 'years': years, 'position': position, 'url': link}
         # New alumni go first within their level (the table lists the most recent first).
         i = next((k for k, x in enumerate(alumni) if x['level'] == level), len(alumni))
         alumni.insert(i, row)
@@ -259,7 +355,8 @@ def do_alumni(a, branch):
     if 'Professor' in row['position']:
         lines += ['', 'Their position mentions "Professor", so they will also appear under Faculty positions. '
                   'Adding them to Collaborators on the Resources page is a manual step.']
-    return 'Alumni: ' + name, lines
+    title = ('Rename: %s → %s' % (alum or member, typed)) if warnings else 'Alumni: ' + row['name']
+    return title, warnings, lines
 
 
 def yaml_snippet(d):
@@ -283,7 +380,10 @@ def main():
     answers = parse_issue_form(issue.get('body', ''))
     branch = 'submission/issue-%d' % issue['number']
     try:
-        title, lines = HANDLERS[form](answers, branch)
+        result = HANDLERS[form](answers, branch)
+        title, warnings, lines = result if len(result) == 3 else (result[0], [], result[1])
+        import sync_forms
+        synced = sync_forms.sync()        # keep the forms' name lists in step with the data
     except Problem as e:
         open(out, 'w').write('Thanks for the submission! I could not prepare the website change:\n\n'
                              '> %s\n\nPlease **edit this issue** to fix it (••• menu → Edit); '
@@ -291,8 +391,12 @@ def main():
         return 2
     flag = ''
     if answers.get('Submitting for') == 'Someone else':
-        flag = ('> [!WARNING]\n> Submitted **on behalf of someone else** by @%s. '
-                'Please check that it is genuine before merging.\n\n' % issue['user']['login'])
+        warnings.append('Submitted **on behalf of someone else** by @%s. Please check that it is genuine before merging.'
+                        % issue['user']['login'])
+    for w in warnings:
+        flag += '> [!WARNING]\n> %s\n\n' % w
+    if synced:
+        lines += ['', 'Also updates the name lists in the forms (%s).' % ', '.join('`%s`' % f for f in synced)]
     body = (flag + '\n'.join(lines) +
             '\n\n---\nFrom #%d, submitted by @%s. Merging publishes it; the site rebuilds in about two minutes.'
             '\nTo reject: comment with a one-line reason, then close this pull request.\n\nCloses #%d\n'

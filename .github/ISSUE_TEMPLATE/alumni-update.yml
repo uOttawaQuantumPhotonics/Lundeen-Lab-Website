@@ -2,6 +2,8 @@
 # Linked from the "Direct update (GitHub form)" button on the People page.
 # Read by scripts/process_submission.py (section "alumni"), which edits
 # _data/alumni.yml (and removes a leaver from _data/members.yml).
+# The two name lists are GENERATED from _data/members.yml and _data/alumni.yml by
+# scripts/sync_forms.py (between the BEGIN/END lines below): don't edit them by hand.
 name: Moving on / alumni update
 description: Leaving the group, or updating where you are now.
 title: "Alumni: "
@@ -15,13 +17,6 @@ body:
         After you submit, a bot prepares the change and one of the website admins reviews it. You will get a GitHub notification when it is live.
 
         No GitHub account? [Email Jeff your update](mailto:jlundeen@uottawa.ca?subject=Lundeen%20Lab%20alumni%20update) instead.
-  - type: input
-    id: name
-    attributes:
-      label: Full name
-      description: As listed on the site
-    validations:
-      required: true
   - type: dropdown
     id: change
     attributes:
@@ -30,27 +25,116 @@ body:
     validations:
       required: true
   - type: dropdown
+    id: member
+    attributes:
+      label: If you are leaving, your current card
+      description: Pick your name from Current members.
+      options:
+        # BEGIN generated: current members (scripts/sync_forms.py)
+        - "Not listed"
+        - "Manuel Ferrer-García"
+        - "Kyle Jordan"
+        - "Michael Weil"
+        - "Colin Veevers"
+        - "Timothy Lee"
+        - "Riza Fazili"
+        - "Simon Lamontagne"
+        - "Alexander Duong"
+        - "Lucie Wang"
+        # END generated
+  - type: dropdown
+    id: alum
+    attributes:
+      label: If you are updating, your alumni entry
+      description: Pick your name from the alumni table (type to search), or "Not listed" if you are missing from it.
+      options:
+        # BEGIN generated: alumni (scripts/sync_forms.py)
+        - "Not listed"
+        - "Andrew Proppe"
+        - "Orad Reshef"
+        - "Raphael Abrahão"
+        - "Connor Kupchak"
+        - "Lambert Giner"
+        - "Kyle Jordan"
+        - "Thomas Bailey"
+        - "Arman Mansouri"
+        - "Aldo Martínez Becerril"
+        - "Daniel Hutama"
+        - "Jing-Hui Huang (visiting)"
+        - "Jefferson Flórez"
+        - "Brayden Freitas"
+        - "Nicholas Sorensen"
+        - "Henri Morin"
+        - "Michael DelMastro"
+        - "Davor Curic"
+        - "Matthew Runyon"
+        - "Guillaume Thekkadath"
+        - "Rebecca Saaltink"
+        - "Xinru Cheng"
+        - "Maye Alsaawy"
+        - "Lucie Wang"
+        - "John Grace"
+        - "Mathilda Zagabe"
+        - "Angéline Lafleur"
+        - "Christopher Negraes"
+        - "Pawni Manchanda"
+        - "Jennifer Besner"
+        - "Niklas Braband"
+        - "Sudhir Suresh Babu"
+        - "Ilyas Jaffer"
+        - "Cedric Bohemier"
+        - "Pratham Tahiliani"
+        - "Yaryna Mamchur"
+        - "James Hubble"
+        - "Jordan Page"
+        - "Kinjal Saxena"
+        - "Siwei Luo"
+        - "Li Liu"
+        - "Ali Alhulaymi"
+        - "Nathan Carlson"
+        - "Gabriel Bussières"
+        - "Michel Poisson"
+        - "Xinyuan Ma"
+        - "Abdulkarim Hariri"
+        - "Felix Hufnagel"
+        - "Tyler Dacosta"
+        - "Codey Nacke"
+        - "Alexandre Charest"
+        - "Darren Chan (high school)"
+        - "Marissa Granados Báez"
+        - "Alec Fraser"
+        - "Alicia Sit"
+        - "Matthew Horton"
+        - "Jash Banker"
+        - "Yamn Chalich"
+        - "Tai Leung"
+        - "Kiera van der Sande"
+        - "Magdalena Richardson"
+        - "Brandon Sutherland"
+        - "Corey Stewart"
+        - "Aabid Patel"
+        # END generated
+  - type: input
+    id: name
+    attributes:
+      label: Full name
+      description: Only if you are not listed, or to change the name shown. Leave empty otherwise.
+  - type: dropdown
     id: level
     attributes:
       label: Level in the lab
-      description: Your highest level in the lab
+      description: Your highest level in the lab. Required when leaving or not listed; leave empty to keep it.
       options: [Postdoctoral fellow, PhD, MSc, Undergraduate, Visiting researcher]
-    validations:
-      required: true
   - type: input
     id: years
     attributes:
       label: Years in the lab
-      description: e.g. 2020–2025
-    validations:
-      required: true
+      description: e.g. 2020–2025. Required when leaving or not listed.
   - type: input
     id: position
     attributes:
       label: Current position
-      description: e.g. "Postdoctoral fellow, National Research Council Canada"
-    validations:
-      required: true
+      description: 'e.g. "Postdoctoral fellow, National Research Council Canada". Required when leaving or not listed.'
   - type: input
     id: link
     attributes:

@@ -76,7 +76,7 @@ jobs:
           git config user.name  "lundeen-lab-website-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B "$BRANCH"
-          git add _data _bibliography assets/img
+          git add _data _bibliography assets/img .github/ISSUE_TEMPLATE
           git commit -m "$(head -n1 pr.md) (#$ISSUE)"
           git push --force origin "$BRANCH"
           title="$(head -n1 pr.md)"

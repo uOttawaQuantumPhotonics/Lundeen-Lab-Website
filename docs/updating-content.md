@@ -33,7 +33,11 @@ Tips
 
 - **Photos:** drag the file into the Photo box. Headshots are cropped to a square (400 × 400);
   send one at least that size with your head near the top-centre. News photos are resized to 1200 px wide.
-- **Profile updates:** only the fields you fill in change; leave the rest empty.
+- **Profile updates:** pick your name in the Profile list (or "New member"); only the fields you fill in change, so leave the rest empty.
+  Fill in Full name only if you are new or want your name changed.
+- **Removing a card** ("Remove this card") is only for duplicates or big mistakes. If you are leaving the group,
+  use the Moving on form, which moves you to the alumni table.
+- **Moving on / alumni updates:** pick your name in the matching list; use Full name only if you are not listed.
 - **Links on your card:** only the links you give appear, as small icons.
 - **Publications:** one of DOI, arXiv number or BibTeX is enough; the bot fetches the rest.
   If the paper is already listed as a preprint, its entry is replaced by the published version.
@@ -64,7 +68,7 @@ These YAML files hold the content that changes often. Each starts with a comment
 
 | File | What it holds |
 |---|---|
-| `_data/members.yml` | Current members (the forms edit this) |
+| `_data/members.yml` | Current members (the forms edit this). After a hand edit, a bot opens a pull request that updates the name lists in the forms; merge it. |
 | `_data/alumni.yml` | Alumni table; anyone whose position mentions "Professor" also appears under Faculty positions |
 | `_data/alumni_levels.yml` | the alumni groups and their order |
 | `_data/news.yml` | news items, newest first |

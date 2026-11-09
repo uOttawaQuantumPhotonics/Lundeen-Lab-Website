@@ -1,0 +1,44 @@
+# .github/workflows/sync-forms.yml: keep the forms' name lists up to date after hand edits.
+#
+# The Profile and Moving on forms list current members and alumni in drop-downs, which
+# are written into the form files. Submission pull requests update them automatically;
+# this catches edits made by hand to _data/members.yml or _data/alumni.yml. If the lists
+# are out of date it opens (or refreshes) a pull request on branch bot/sync-forms.
+name: Update the forms' name lists
+
+on:
+  push:
+    branches: [main]
+    paths: ['_data/members.yml', '_data/alumni.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      BRANCH: bot/sync-forms
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install pyyaml
+      - name: Regenerate the lists
+        run: python3 scripts/sync_forms.py
+      - name: Open or refresh the pull request if anything changed
+        run: |
+          if git diff --quiet; then echo "Forms already up to date."; exit 0; fi
+          git config user.name  "lundeen-lab-website-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add .github/ISSUE_TEMPLATE
+          git commit -m "Update the name lists in the forms"
+          git push --force origin "$BRANCH"
+          body="The member or alumni list changed, so the drop-down lists in the Profile and Moving on forms are regenerated to match (scripts/sync_forms.py). Merge to update the forms."
+          if gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -q OPEN; then
+            gh pr edit "$BRANCH" --body "$body"
+          else
+            gh pr create --head "$BRANCH" --base main --title "Forms: update the name lists" --body "$body"
+          fi

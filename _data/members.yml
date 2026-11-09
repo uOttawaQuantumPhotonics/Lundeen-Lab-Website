@@ -11,19 +11,20 @@
 #             (website, scholar, orcid, github, linkedin, x, bluesky: full URLs)
 # When someone leaves the group, remove them here and add them to alumni.yml.
 
-- name: Manuel Ferrer
+- name: Manuel Ferrer-García
   role: Postdoctoral fellow
   project: Experiments in quantum information
-  bio: ""
+  bio: Manuel Ferrer-García is a postdoctoral fellow at the University of Ottawa, where he develops compact optical devices for quantum information processing. His research focuses on structured light, multilayer photonics, and the manipulation of spatial and polarization degrees of freedom of light. Passionate about scientific collaboration, mentorship, and outreach, he actively supports the optics community. Outside the lab, he enjoys cycling, volunteering at community bike workshops, and discovering good coffee spots.
   photo: manuel-ferrer.jpg
   links:
-    website: ""
-    scholar: ""
-    orcid: ""
-    github: ""
-    linkedin: ""
+    website: https://mffg1993.github.io/
+    scholar: https://scholar.google.ca/citations?user=FzMu3LkAAAAJ&hl=en
+    orcid: https://orcid.org/0000-0003-1358-2049
+    github: https://github.com/mffg1993
+    linkedin: https://www.linkedin.com/in/manuel-ferrer-78247962/
     x: ""
     bluesky: ""
+  start: Summer 2024
 - name: Kyle Jordan
   role: Postdoctoral fellow · Associate member
   project: Postdoctoral fellow at the National Research Council Canada
@@ -128,17 +129,3 @@
     linkedin: ""
     x: ""
     bluesky: ""
-- name: Manuel Ferrer-García
-  role: Postdoctoral fellow
-  project: ""
-  bio: Manuel Ferrer-García is a postdoctoral fellow at the University of Ottawa, where he develops compact optical devices for quantum information processing. His research focuses on structured light, multilayer photonics, and the manipulation of spatial and polarization degrees of freedom of light. Passionate about scientific collaboration, mentorship, and outreach, he actively supports the optics community. Outside the lab, he enjoys cycling, volunteering at community bike workshops, and discovering good coffee spots.
-  photo: ""
-  links:
-    website: https://mffg1993.github.io/
-    scholar: https://scholar.google.ca/citations?user=FzMu3LkAAAAJ&hl=en
-    orcid: https://orcid.org/0000-0003-1358-2049
-    github: https://github.com/mffg1993
-    linkedin: https://www.linkedin.com/in/manuel-ferrer-78247962/
-    x: ""
-    bluesky: ""
-  start: Summer 2024

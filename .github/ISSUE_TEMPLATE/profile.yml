@@ -1,6 +1,8 @@
 # .github/ISSUE_TEMPLATE/profile.yml: the "My profile (join or update)" form.
 # Read by scripts/process_submission.py (section "profile"), which edits _data/members.yml.
-# A new name adds a card; an existing name updates that card (only filled-in fields change).
+# Submitters pick their card from the "Profile" list, so names never have to be retyped.
+# That list is GENERATED from _data/members.yml by scripts/sync_forms.py (between the
+# BEGIN/END lines below): don't edit it by hand. Only filled-in fields change a card.
 name: My profile (join or update)
 description: Add yourself to Current members on the People page, or update your card.
 title: "Profile: "
@@ -12,13 +14,39 @@ body:
         **Submissions are public on GitHub as soon as you send them, before they appear on the website. Don't include anything you wouldn't want published.**
 
         After you submit, a bot prepares the change and one of the website admins reviews it. You will get a GitHub notification when it is live.
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Profile
+      description: Pick your card, or "New member" if you are not on the People page yet.
+      options:
+        # BEGIN generated: current members (scripts/sync_forms.py)
+        - "New member (not listed yet)"
+        - "Manuel Ferrer-García"
+        - "Kyle Jordan"
+        - "Michael Weil"
+        - "Colin Veevers"
+        - "Timothy Lee"
+        - "Riza Fazili"
+        - "Simon Lamontagne"
+        - "Alexander Duong"
+        - "Lucie Wang"
+        # END generated
+    validations:
+      required: true
+  - type: dropdown
+    id: action
+    attributes:
+      label: What to do
+      description: '"Remove this card" is only for duplicate entries or large mistakes. If you are leaving the group, use the "Moving on / alumni update" form instead, which moves you to the alumni table.'
+      options: [Add or update, Remove this card]
+    validations:
+      required: true
   - type: input
     id: name
     attributes:
       label: Full name
-      description: As it should appear on the site
-    validations:
-      required: true
+      description: Only for a new member, or to change the name on your card. Leave empty otherwise.
   - type: dropdown
     id: for
     attributes:
@@ -31,16 +59,13 @@ body:
     id: role
     attributes:
       label: Role
+      description: Required for a new member; leave empty to keep your current role.
       options: [Postdoctoral fellow, PhD student, MSc student, Undergraduate researcher, Visiting researcher, Research associate, Associate member]
-    validations:
-      required: true
   - type: input
     id: start
     attributes:
       label: Start (year and term)
-      description: e.g. Fall 2026
-    validations:
-      required: true
+      description: e.g. Fall 2026. Required for a new member.
   - type: input
     id: project
     attributes:
