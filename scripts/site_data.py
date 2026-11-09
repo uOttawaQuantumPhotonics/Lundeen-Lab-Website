@@ -12,6 +12,7 @@ Needs PyYAML and Pillow (installed by the workflows: pip install pyyaml pillow).
 """
 import re
 import unicodedata
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -92,14 +93,32 @@ def image_urls(text):
 
 # ---- Network ----------------------------------------------------------------
 
+class _DropAuthOnRedirect(urllib.request.HTTPRedirectHandler):
+    """Follow redirects, but never send our GitHub token to another host.
+
+    Photos uploaded in a form live at github.com/user-attachments/...; GitHub answers with
+    a redirect to a pre-signed storage URL. Python would forward the Authorization header
+    there too, and the storage service rejects a request with two kinds of credentials
+    (HTTP 400 Bad Request). So the header is dropped whenever the host changes."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        new = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if new is not None and urllib.parse.urlsplit(newurl).netloc != urllib.parse.urlsplit(req.full_url).netloc:
+            new.remove_header('Authorization')
+        return new
+
+
+_opener = urllib.request.build_opener(_DropAuthOnRedirect)
+
+
 def fetch(url, accept=None, token=None, binary=False, timeout=30):
     headers = {'User-Agent': USER_AGENT}
     if accept:
         headers['Accept'] = accept
-    if token:
+    if token and urllib.parse.urlsplit(url).netloc.endswith('github.com'):   # the token is only for GitHub
         headers['Authorization'] = 'Bearer ' + token
     req = urllib.request.Request(url, headers=headers)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
+    with _opener.open(req, timeout=timeout) as r:
         data = r.read()
     return data if binary else data.decode('utf-8', 'replace')
 
