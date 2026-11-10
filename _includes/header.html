@@ -4,9 +4,10 @@
   - On phones (under 860 px wide, see assets/css/site.css) the menu collapses into
     the ☰ button, which is a plain HTML <details> element and needs no JavaScript.
   - The current page is highlighted using `page.nav` from the page's front matter.
+  - The bar stays at the top while the page scrolls (position: sticky; 56 px tall, 52 px on phones).
 {%- endcomment -%}
-<header style="border-bottom: 1px solid #1c2430; background: #0a0e14">
-<div class="w" style="display: flex; justify-content: space-between; align-items: center; height: 72px; gap: 16px">
+<header class="topbar" style="border-bottom: 1px solid #1c2430; background: #0a0e14; position: sticky; top: 0; z-index: 50">
+<div class="w bar" style="display: flex; justify-content: space-between; align-items: center; height: 56px; gap: 16px">
 <a href="{{ '/' | relative_url }}" style="display: flex; align-items: center; gap: 16px; text-decoration: none" aria-label="Lundeen Lab home">
 <img class="hdr-logo" src="{{ '/assets/img/logos/lundeen-uottawa-white.png' | relative_url }}" alt="Lundeen Lab for Quantum Photonics, University of Ottawa" style="height: 42px; width: auto; display: block">
 </a>

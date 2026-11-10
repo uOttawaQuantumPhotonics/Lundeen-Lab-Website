@@ -18,6 +18,14 @@
    ========================================================================== */
 
 body { margin: 0; background: #0a0e14; }
+
+/* The top bar stays visible while scrolling (_includes/header.html). Jump links
+   ("#selected-papers" etc.) therefore stop this far from the top, so the heading
+   they jump to lands just below the bar instead of hidden behind it. */
+html { scroll-padding-top: 72px; }
+
+/* The banner logo on the Home page: never stretch the image, whatever size its box gets. */
+.hero-logo { object-fit: contain; object-position: left center; }
 a { color: #8fdc72; }
 a:hover { color: #c6f2b4; }
 
@@ -69,8 +77,11 @@ a:hover { color: #c6f2b4; }
   .two { gap: 28px; }
   .navlinks { display: none; }
   .mnav { display: block; }
-  /* flex-shrink: 0 keeps the banner logo's proportions when the banner is shorter */
-  .hero-logo { width: 72% !important; height: auto !important; flex-shrink: 0; }
+  /* Banner logo: a fixed width (not a percentage), because iPhone browsers sized the
+     image's height from a different width than its width and squashed it. */
+  .hero-logo { width: min(250px, 64vw) !important; max-width: none !important; height: auto !important; flex-shrink: 0; }
+  html { scroll-padding-top: 68px; }
+  header .bar { height: 52px !important; }
   /* header: logo, Join us and the ☰ button must fit in 390 px */
   header .w { gap: 10px !important; }
   header nav { gap: 10px !important; }
