@@ -11,13 +11,15 @@ description: >-
   We explore the fundamental principles of quantum physics and harness the
   unique properties of light to develop novel technologies.
 
-# Where the site is served from.
-#   While the site lives at https://uottawaquantumphotonics.github.io/Lundeen-Lab-Website/
-#   baseurl must be "/Lundeen-Lab-Website".
-#   Once the custom domain (photonicquantum.info) is connected, change baseurl
-#   to "" and url to "https://photonicquantum.info". See docs/admin-guide.md.
-url: "https://uottawaquantumphotonics.github.io"
-baseurl: "/Lundeen-Lab-Website"
+# Where the site is served from: the custom domain photonicquantum.info (since 10 Nov 2026).
+#   The site sits at the top level of the domain, so baseurl is "".
+#   The deploy workflow passes GitHub's own base path to Jekyll as well, so a build after
+#   any change of address in Settings → Pages picks it up. If the custom domain is ever
+#   removed, the site moves back to https://uottawaquantumphotonics.github.io/Lundeen-Lab-Website/:
+#   set url to "https://uottawaquantumphotonics.github.io" and baseurl to "/Lundeen-Lab-Website",
+#   then rebuild. See docs/admin-guide.md.
+url: "https://photonicquantum.info"
+baseurl: ""
 
 # The GitHub repository; used to build links to the update forms.
 repository: "uOttawaQuantumPhotonics/Lundeen-Lab-Website"

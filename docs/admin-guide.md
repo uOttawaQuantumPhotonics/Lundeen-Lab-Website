@@ -42,15 +42,28 @@ Delete any entries you don't want (edit `_bibliography/lundeenlab.bib` in the pu
 
 Add or remove people in the `web-admins` team. Nothing in the code needs to change.
 
-## Connecting photonicquantum.info
+## The domain: photonicquantum.info
 
-1. At the domain registrar, add DNS records for GitHub Pages:
-   four `A` records for the bare domain pointing to 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153,
-   and a `CNAME` record for `www` pointing to `uottawaquantumphotonics.github.io`.
-2. Settings → Pages → Custom domain: `photonicquantum.info`; once the check passes, tick **Enforce HTTPS**.
-3. In `_config.yml`, set `url: "https://photonicquantum.info"` and `baseurl: ""`, and merge.
+Connected on 10 Nov 2026. How it is set up, in case it needs fixing:
 
-(Check GitHub's current instructions, "Managing a custom domain for your GitHub Pages site", before changing DNS.)
+- **Registrar and DNS:** Squarespace (Domains → photonicquantum.info). The nameservers are Squarespace's own
+  (`nsd1`–`nsd4.squarespacedns.com`). Until Nov 2026 they pointed to Amazon (AWS Route 53, from the old Uniweb site),
+  and records added in Squarespace were ignored. If Squarespace shows "You're using custom nameservers", that has been undone.
+- **DNS records** (Squarespace → DNS → Custom records):
+
+  | Type | Name | Data |
+  | --- | --- | --- |
+  | A | `@` | 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153 (four records) |
+  | CNAME | `www` | `uottawaquantumphotonics.github.io` |
+  | TXT | `_github-pages-challenge-uottawaquantumphotonics` | the code from Organization → Settings → Pages (domain verification) |
+
+  Leave the `_domainconnect` record and the two `googlehosted.com` records alone.
+- **GitHub:** Repository → Settings → Pages → Custom domain `photonicquantum.info`, **Enforce HTTPS** ticked.
+  Organization → Settings → Pages: domain verification (still pending on 10 Nov, waiting for DNS caches).
+- **After any change of address**, run Actions → "Build and publish the website" → Run workflow; otherwise
+  images and styles point at the old address.
+- **Check DNS from anywhere:** https://dnschecker.org (types A, CNAME, NS, TXT).
+- **Waiting:** a nameserver change, or a "record not found" answer seen before a change, can take up to 24 hours to clear.
 
 ## When something goes wrong
 
