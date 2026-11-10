@@ -31,6 +31,7 @@ body:
         - "Simon Lamontagne"
         - "Alexander Duong"
         - "Lucie Wang"
+        - "Valeria Tena"
         # END generated
     validations:
       required: true
