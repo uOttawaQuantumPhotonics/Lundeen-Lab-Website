@@ -21,7 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+{%- comment -%} ?v=<build time> makes browsers fetch the new CSS/JS after every change instead of a cached copy. {%- endcomment %}
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 </head>
 <body>
 <div style="font-family: Inter, system-ui, sans-serif; color: #e8edf2; background: #0a0e14">
@@ -31,6 +32,6 @@
 </main>
 {% include footer.html %}
 </div>
-<script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 </body>
 </html>
