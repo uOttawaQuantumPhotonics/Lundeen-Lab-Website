@@ -21,3 +21,6 @@
 10.1109/qels.2008.4552969
 10.1109/qels.2008.4552972
 10.1109/qels.2008.4553069
+
+# Conference paper seen on Google Scholar (10 Nov 2026); DOI unknown, so skipped by title
+Simultaneous Time and Frequency Resolution in Two-Photon Absorption with Classical Light
