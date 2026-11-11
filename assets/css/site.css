@@ -90,6 +90,8 @@ a:hover { color: #c6f2b4; }
   header .w { gap: 10px !important; }
   header nav { gap: 10px !important; }
   .hdr-logo { height: 26px !important; }
+  .hdr-uo { height: 19px !important; }
+  .hdr-home { gap: 10px !important; }
   .joinbtn { padding: 8px 12px !important; font-size: 14px !important; white-space: nowrap; }
 
   .stack thead { display: none; }
@@ -113,7 +115,7 @@ a:hover { color: #c6f2b4; }
   .tbl { font-size: 14px; }
   .tbl th, .tbl td { padding: 10px 12px; }
 
-  .hero-banner { height: 308px !important; }
+  .hero-banner { height: 230px !important; }
 
   .hero-sec { height: auto !important; min-height: 210px; }
   .hero-sec > .hero-img { position: absolute; inset: 0; }
