@@ -116,6 +116,7 @@ a:hover { color: #c6f2b4; }
   .tbl th, .tbl td { padding: 10px 12px; }
 
   .hero-banner { height: 230px !important; }
+  .hero-tag { font-size: 20px !important; }   /* Home banner tagline: 30 px on desktop */
 
   .hero-sec { height: auto !important; min-height: 210px; }
   .hero-sec > .hero-img { position: absolute; inset: 0; }
