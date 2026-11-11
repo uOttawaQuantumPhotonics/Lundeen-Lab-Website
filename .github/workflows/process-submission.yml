@@ -8,11 +8,24 @@
 #      opened (or updated, if the submitter edits their issue)
 # If the submission has a problem, the bot comments on the issue instead.
 # Nothing goes live until a member of web-admins merges the pull request.
+#
+# It can also be started for one issue by hand or by refresh-submissions.yml
+# (workflow_dispatch). That rebuilds the pull request from the current main, which is
+# how a pull request that has a merge conflict gets fixed.
 name: Process an update form
 
 on:
   issues:
     types: [opened, edited, labeled]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Issue number of the submission to (re)process
+        required: true
+      reason:
+        description: Why it is being rebuilt (shown in the comment on the issue)
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -20,12 +33,13 @@ permissions:
   issues: write
 
 concurrency:            # one run per issue at a time
-  group: submission-${{ github.event.issue.number }}
+  group: submission-${{ github.event.issue.number || inputs.issue }}
   cancel-in-progress: true
 
 jobs:
   process:
     if: >-
+      github.event_name == 'workflow_dispatch' ||
       contains(github.event.issue.labels.*.name, 'news') ||
       contains(github.event.issue.labels.*.name, 'publication') ||
       contains(github.event.issue.labels.*.name, 'profile') ||
@@ -34,18 +48,26 @@ jobs:
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      ISSUE: ${{ github.event.issue.number }}
-      BRANCH: submission/issue-${{ github.event.issue.number }}
+      ISSUE: ${{ github.event.issue.number || inputs.issue }}
+      BRANCH: submission/issue-${{ github.event.issue.number || inputs.issue }}
+      REASON: ${{ inputs.reason }}
     steps:
       - uses: actions/checkout@v4
 
       - run: pip install pyyaml pillow
 
+      # When started by hand there is no issue in the event, so fetch it.
+      - name: Fetch the issue (manual or automatic rebuild only)
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          gh api "repos/${{ github.repository }}/issues/$ISSUE" | jq '{issue: .}' > event.json
+
       - name: Prepare the change
         id: prep
         run: |
           set +e
-          python3 scripts/process_submission.py "$GITHUB_EVENT_PATH" pr.md
+          event="$GITHUB_EVENT_PATH"; [ -f event.json ] && event=event.json
+          python3 scripts/process_submission.py "$event" pr.md
           echo "status=$?" >> "$GITHUB_OUTPUT"
 
       - name: Tell the submitter what to fix
@@ -77,13 +99,17 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B "$BRANCH"
           git add _data _bibliography assets/img .github/ISSUE_TEMPLATE
-          git commit -m "$(head -n1 pr.md) (#$ISSUE)"
+          git commit -m "$(head -n1 pr.md) (#$ISSUE)" || echo "Nothing changed."
           git push --force origin "$BRANCH"
           title="$(head -n1 pr.md)"
           tail -n +2 pr.md > body.md
           if gh pr view "$BRANCH" --json state -q .state 2>/dev/null | grep -q OPEN; then
             gh pr edit "$BRANCH" --title "$title" --body-file body.md
-            gh issue comment "$ISSUE" --body "Thanks! I've updated the pull request with your changes."
+            if [ -n "$REASON" ]; then
+              gh issue comment "$ISSUE" --body "$REASON"
+            else
+              gh issue comment "$ISSUE" --body "Thanks! I've updated the pull request with your changes."
+            fi
           else
             url=$(gh pr create --head "$BRANCH" --base main --title "$title" --body-file body.md)
             gh issue comment "$ISSUE" --body "Thanks! Your update is ready for review: $url. It goes live once an admin approves it."

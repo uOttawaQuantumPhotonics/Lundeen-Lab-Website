@@ -1,0 +1,26 @@
+{%- comment -%}
+  _includes/news-list.html: the news items from _data/news.yml as cards, NEWEST FIRST,
+  whatever order they are in the file.
+  Used by index.html (count=3) and news.html (all items).
+  Parameters:  count = how many to show (leave out for all);  size = title font size in px.
+
+  How the sorting works (Liquid has no "sort by date" that copes with every way a date
+  can be written in YAML, quoted or not):
+    1. build one text key per item: "YYYY-MM-DD~NNN", where NNN = 999 minus the item's
+       position in the file, so items with the same date keep their file order;
+    2. sort the keys as text, newest first;
+    3. read each item's position back out of its key and show that item.
+{%- endcomment -%}
+{%- capture keys -%}
+{%- for item in site.data.news -%}
+{{ item.date | date: "%Y-%m-%d" }}~{{ 999 | minus: forloop.index0 }}{%- unless forloop.last -%}|{%- endunless -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign keys = keys | split: "|" | sort | reverse -%}
+{%- assign shown = include.count | default: keys.size -%}
+{%- for key in keys limit: shown -%}
+{%- assign pos = key | split: "~" | last | plus: 0 -%}
+{%- assign pos = 999 | minus: pos -%}
+{%- assign news_item = site.data.news[pos] %}
+{% include news-card.html item=news_item size=include.size %}
+{%- endfor -%}

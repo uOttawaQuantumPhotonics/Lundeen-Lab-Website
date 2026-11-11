@@ -10,7 +10,7 @@ and opens a pull request for an admin to approve.
     python3 scripts/process_submission.py <github-event.json> <pr-body.md>
 
 What each form does (the label on the issue picks the form):
-    news         adds an item to the top of _data/news.yml (+ photo, 1200 px wide)
+    news         adds an item to _data/news.yml, kept in date order (+ photo, 1200 px wide)
     publication  fetches BibTeX and adds it to _bibliography/lundeenlab.bib
     profile      adds or updates a card in _data/members.yml (+ photo, 400 x 400)
     alumni       "leaving": moves the person from members.yml to alumni.yml

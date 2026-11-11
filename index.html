@@ -100,9 +100,7 @@ nav: Home
 <a href="{{ '/news/' | relative_url }}" style="font-weight: 500; text-decoration: none">All news →</a>
 </div>
 <div class="cards">
-{%- for item in site.data.news limit: 3 %}
-{% include news-card.html item=item size=19 %}
-{%- endfor %}
+{% include news-list.html count=3 size=19 %}
 </div>
 </div>
 </section>

@@ -1,7 +1,8 @@
-# _data/news.yml: news items, NEWEST FIRST.
-# The News page shows all of them; the Home page shows the first three.
+# _data/news.yml: news items. Order in this file does not matter: the site sorts
+# them by date, newest first (see _includes/news-list.html). The News page shows
+# all of them; the Home page shows the three newest.
 # Added by the "News item" form, or edit by hand. Fields:
-#   date       YYYY-MM-DD (used for ordering; use the 1st if only the month is known)
+#   date       YYYY-MM-DD, used for ordering (use the 1st if only the month is known)
 #   date_text  how the date is displayed, e.g. "Aug 2026" or "2025"
 #   tag        one of: Paper, People, Award, Event, Outreach, Other
 #   title      headline

@@ -71,7 +71,7 @@ These YAML files hold the content that changes often. Each starts with a comment
 | `_data/members.yml` | Current members (the forms edit this). After a hand edit, a bot opens a pull request that updates the name lists in the forms; merge it. |
 | `_data/alumni.yml` | Alumni table; anyone whose position mentions "Professor" also appears under Faculty positions |
 | `_data/alumni_levels.yml` | the alumni groups and their order |
-| `_data/news.yml` | news items, newest first |
+| `_data/news.yml` | news items, in any order (the site sorts them by date) |
 | `_data/home.yml` | Home page photo carousel and "Selected papers" |
 | `_data/nav.yml` | the main menu |
 

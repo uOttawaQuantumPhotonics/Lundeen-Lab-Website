@@ -1,0 +1,53 @@
+# .github/workflows/refresh-submissions.yml: keep open submission pull requests mergeable.
+#
+# Why: each form submission becomes a pull request built from main as it was at that
+# moment. If two submissions edit the same file (e.g. two news items, both added at the
+# top of _data/news.yml), merging the first leaves the second with a merge conflict,
+# and GitHub's "Update branch" button cannot fix that.
+#
+# What it does: every time something is merged into main, it looks at the open pull
+# requests on submission/issue-<number> branches. Any that can no longer merge cleanly
+# is rebuilt from the current main by re-running process-submission.yml for its issue,
+# so the approver only ever sees a clean, up-to-date pull request.
+# It can also be started by hand (Actions tab → "Refresh submission pull requests" → Run).
+name: Refresh submission pull requests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  actions: write          # to start process-submission.yml
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: refresh-submissions
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Rebuild submission pull requests that have conflicts
+        run: |
+          # GitHub works out "mergeable" in the background after a push, so ask a few
+          # times until it has an answer (UNKNOWN means "not worked out yet").
+          for attempt in 1 2 3 4 5 6; do
+            sleep 20
+            gh pr list --state open --json number,headRefName,mergeable \
+              -q '.[] | select(.headRefName | startswith("submission/issue-")) | "\(.number) \(.headRefName) \(.mergeable)"' > prs.txt
+            cat prs.txt
+            grep -q ' UNKNOWN$' prs.txt || break
+          done
+          while read -r pr branch state; do
+            [ "$state" = "CONFLICTING" ] || continue
+            issue="${branch#submission/issue-}"
+            echo "Pull request #$pr has a conflict: rebuilding it from issue #$issue"
+            gh workflow run process-submission.yml -f issue="$issue" \
+              -f reason="Another update was merged first, so I've rebuilt this pull request from the latest version of the site. It's ready for review again."
+          done < prs.txt

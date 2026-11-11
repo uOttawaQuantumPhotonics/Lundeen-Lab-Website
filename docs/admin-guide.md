@@ -71,5 +71,9 @@ Connected on 10 Nov 2026. How it is set up, in case it needs fixing:
   Usually a typo in a YAML file; fix it in a new pull request. The live site keeps the last good version meanwhile.
 - **The bot said "unexpected error" on an issue:** open the linked Actions run. Common causes: doi.org or ORCID was down
   (edit the issue later to retry), or a photo link that can't be downloaded.
+- **A submission pull request says "This branch has conflicts":** this happens when two submissions edit the
+  same file and one is merged first. The "Refresh submission pull requests" workflow rebuilds it from the
+  latest site within a couple of minutes of the merge, and the bot comments on the issue when it's ready.
+  If it hasn't, Actions tab → "Process an update form" → Run workflow, with the issue number.
 - **A name list in a form is out of date:** Actions tab → "Update the forms' name lists" → Run workflow, then merge its pull request.
 - **Undo a change:** open the merged pull request and click **Revert**; merge the revert pull request.

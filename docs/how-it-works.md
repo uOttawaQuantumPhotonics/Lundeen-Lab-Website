@@ -41,11 +41,11 @@ and `.hero-sec`; the comment at the top of that file lists them.
 
 | Page | Written in the page file | From data |
 |---|---|---|
-| Home (`index.html`) | research cards, recruiting banner | carousel + selected papers: `_data/home.yml`; latest news: first 3 of `_data/news.yml` |
+| Home (`index.html`) | research cards, recruiting banner | carousel + selected papers: `_data/home.yml`; latest news: the 3 newest in `_data/news.yml` |
 | Research | everything | — |
 | People | PI section, outcome cards | members: `members.yml` (icons: `link_icons.yml`); alumni: `alumni.yml` grouped by `alumni_levels.yml`; alumni count, professor count and Faculty positions computed from `alumni.yml` |
 | Publications | banner | `_data/publications.json`, built from `_bibliography/lundeenlab.bib` |
-| News | banner | `_data/news.yml` via `_includes/news-card.html` |
+| News | banner | `_data/news.yml` via `_includes/news-list.html` (sorts by date) and `news-card.html` |
 | Join us, Resources, Contact | everything | — |
 
 ## JavaScript
@@ -58,7 +58,8 @@ and Copy BibTeX buttons. All content is in the HTML already, so the site still w
 
 | Workflow | Trigger | Script | Result |
 |---|---|---|---|
-| `process-submission.yml` | an issue with label `news`, `publication`, `profile` or `alumni` is opened or edited | `process_submission.py` | branch `submission/issue-N` and a pull request, or a comment asking for a fix |
+| `process-submission.yml` | an issue with label `news`, `publication`, `profile` or `alumni` is opened or edited; or by hand / by `refresh-submissions.yml` with an issue number | `process_submission.py` | branch `submission/issue-N` and a pull request, or a comment asking for a fix |
+| `refresh-submissions.yml` | push to `main`, or by hand | — | any open submission pull request with a merge conflict is rebuilt from the current `main` (re-runs `process-submission.yml` for its issue) |
 | `rejected-submission.yml` | such a pull request is closed without merging | — | the admin's last comment is posted on the issue, which is closed |
 | `orcid-sync.yml` | Mondays, or by hand | `orcid_sync.py` | branch `bot/orcid-sync` and one pull request, if anything is new (works listed in `_bibliography/orcid-skip.txt` are never proposed) |
 | `sync-forms.yml` | `members.yml` or `alumni.yml` changes on `main` | `sync_forms.py` | a pull request updating the forms' name lists, if they are out of date |

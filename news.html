@@ -20,9 +20,7 @@ nav: News
 <section style="padding: 56px 0 80px">
 <div class="w" style="display: flex; flex-direction: column; gap: 28px">
 <div style="display: flex; flex-direction: column; gap: 20px; max-width: 860px">
-{%- for item in site.data.news %}
-{% include news-card.html item=item size=21 %}
-{%- endfor %}
+{% include news-list.html size=21 %}
 </div>
 </div>
 </section>
