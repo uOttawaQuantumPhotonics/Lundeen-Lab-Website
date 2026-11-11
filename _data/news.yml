@@ -10,56 +10,59 @@
 #   image      optional file name in assets/img/news/ (1200 px wide); "" for none
 #   image_credit  e.g. "Photo: Lundeen Lab"; "" for none
 
-- date: 2026-08-01
-  date_text: "Aug 2026"
+- date: '2026-11-01'
+  date_text: Nov 2026
   tag: Event
-  title: "uOttawa hosts QCrypt 2026"
-  text: "The annual conference on quantum cryptography came to Ottawa, hosted at the University of Ottawa."
+  title: uOttawa to host QCMC 2027
+  text: The University of Ottawa has been selected to host the 17th conference on Quantum Communication, Measurement and Computing, August 9–13, 2027. The first QCMC was held in Paris 1990!
+  link: https://www.qcmc2027.com/
+  image: ""
+  image_credit: ""
+- date: 2026-08-01
+  date_text: Aug 2026
+  tag: Event
+  title: uOttawa hosts QCrypt 2026
+  text: The annual conference on quantum cryptography came to Ottawa, hosted at the University of Ottawa.
   link: ""
   image: ""
   image_credit: ""
-
 - date: 2026-01-01
-  date_text: "Jan 2026"
+  date_text: Jan 2026
   tag: People
-  title: "Kyle Jordan starts a postdoc at the NRC"
-  text: "After finishing his PhD in the lab, Kyle has joined the National Research Council Canada as a postdoctoral fellow."
+  title: Kyle Jordan starts a postdoc at the NRC
+  text: After finishing his PhD in the lab, Kyle has joined the National Research Council Canada as a postdoctoral fellow.
   link: ""
   image: ""
   image_credit: ""
-
 - date: 2025-10-01
-  date_text: "Oct 2025"
+  date_text: Oct 2025
   tag: People
-  title: "Thomas Bailey completes his PhD"
-  text: "Congratulations to Dr. Bailey, who has completed his PhD in the lab."
+  title: Thomas Bailey completes his PhD
+  text: Congratulations to Dr. Bailey, who has completed his PhD in the lab.
   link: ""
   image: ""
   image_credit: ""
-
 - date: 2025-06-01
-  date_text: "Jun 2025"
+  date_text: Jun 2025
   tag: Award
-  title: "Jeff Lundeen named Director of NexQT"
-  text: "Jeff now leads uOttawa’s Nexus for Quantum Technologies, a cross-faculty institute of more than 80 researchers."
-  link: "https://www.uottawa.ca/research-innovation/quantum-institute"
+  title: Jeff Lundeen named Director of NexQT
+  text: Jeff now leads uOttawa’s Nexus for Quantum Technologies, a cross-faculty institute of more than 80 researchers.
+  link: https://www.uottawa.ca/research-innovation/quantum-institute
   image: ""
   image_credit: ""
-
 - date: 2025-02-01
-  date_text: "2025"
+  date_text: '2025'
   tag: Paper
-  title: "Weak-value amplification with real weak values in PRL"
-  text: "Our paper “Enhancing interferometry using weak value amplification with real weak values” appears in Physical Review Letters."
-  link: "https://doi.org/10.1103/PhysRevLett.134.080802"
+  title: Weak-value amplification with real weak values in PRL
+  text: Our paper “Enhancing interferometry using weak value amplification with real weak values” appears in Physical Review Letters.
+  link: https://doi.org/10.1103/PhysRevLett.134.080802
   image: ""
   image_credit: ""
-
 - date: 2024-11-01
-  date_text: "Nov 2024"
+  date_text: Nov 2024
   tag: Paper
-  title: "A laser beam that casts a shadow"
-  text: "In Optica we show that, under the right conditions, a laser beam can cast a shadow like a solid object."
-  link: "https://doi.org/10.1364/OPTICA.534596"
+  title: A laser beam that casts a shadow
+  text: In Optica we show that, under the right conditions, a laser beam can cast a shadow like a solid object.
+  link: https://doi.org/10.1364/OPTICA.534596
   image: ""
   image_credit: ""
