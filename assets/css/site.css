@@ -117,6 +117,7 @@ a:hover { color: #c6f2b4; }
 
   .hero-banner { height: 230px !important; }
   .hero-tag { font-size: 20px !important; }   /* Home banner tagline: 30 px on desktop */
+  .hero-brand { max-width: 100% !important; }   /* desktop limits it to 80%; on phones that wrapped the tagline */
 
   .hero-sec { height: auto !important; min-height: 210px; }
   .hero-sec > .hero-img { position: absolute; inset: 0; }
